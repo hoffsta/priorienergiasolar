@@ -153,6 +153,7 @@ body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;op
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border-radius:18px;overflow:hidden;margin:30px 0 26px}
 .stats div{background:var(--deep);padding:16px 18px}
 .stats span{display:block;color:var(--mute-d);font-size:.88rem}
+.stats .area{font-family:var(--sans);font-weight:500;font-size:.8em;opacity:.65}
 .stats b{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .result .btn{width:100%;justify-content:center}
 .disc{font-size:.82rem;color:var(--mute-d);margin-top:16px;line-height:1.55}
@@ -321,6 +322,32 @@ footer{background:var(--night);color:#fff;padding:clamp(60px,10vh,110px) var(--p
   .stats b{font-size:1.2rem}
   .save-label{margin-top:-46px}
 }
+@media (max-width:900px){
+  .sim{grid-template-columns:minmax(0,1fr);gap:22px;padding-top:80px;padding-bottom:80px}
+  .sim>*{min-width:0}
+  .sim h2{font-size:clamp(2.1rem,9vw,2.8rem);margin-bottom:12px}
+  .sim .lede{font-size:1rem}
+  .bill{margin-top:22px;padding:20px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid var(--line-d)}
+  .bill output{font-size:3rem;margin-bottom:16px}
+  .quick{flex-wrap:nowrap;overflow-x:auto;margin:18px -20px 0;padding:0 20px 4px;scrollbar-width:none}
+  .quick::-webkit-scrollbar{display:none}
+  .quick button{flex:none}
+  .phase{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
+  .phase>span{grid-column:1/-1;margin:0 0 2px}
+  .phase label{text-align:center;padding:9px 4px}
+  .result{padding:22px 18px;border-radius:22px}
+  .gauge{max-width:300px}
+  .save-label{margin-top:-52px;font-size:.9rem}
+  .save{font-size:2.8rem}
+  .pay{font-size:.95rem;margin-top:10px}
+  .stats{margin:20px 0 18px;border-radius:14px}
+  .stats div{padding:12px 14px}
+  .stats span{font-size:.8rem}
+  .stats b{font-size:1.1rem}
+  .stats .area{display:block;font-size:.78rem;margin-top:2px}
+  .result .btn{padding:15px 18px;font-size:.95rem}
+  .result .btn .long{display:none}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -414,7 +441,7 @@ footer{background:var(--night);color:#fff;padding:clamp(60px,10vh,110px) var(--p
       <div><span>Conta média com solar</span><b id="newBill">R$ 52</b></div>
       <div><span>Economia em 25 anos</span><b id="y25">R$ 114 mil</b></div>
     </div>
-    <a class="btn btn-sun magnetic" id="simCta" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Quero um orçamento com esse valor</a>
+    <a class="btn btn-sun magnetic" id="simCta" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Quero um orçamento<span class="long">&nbsp;com esse valor</span></a>
     <details class="disc" id="disc"><summary>Como calculamos</summary><p>Tarifa residencial Copel de R$ 1,03/kWh com tributos (após a revisão de junho de 2026). Fio B de R$ 0,25/kWh, cobrado em 60% em 2026, 75% em 2027 e 90% de 2028 em diante (Lei 14.300), sobre os 70% da geração que vão para a rede. A nova conta é o maior valor entre a taxa mínima da ligação e o Fio B. A faixa “você pagará de… a…” vai do cenário favorável (Fio B de hoje e 40% do consumo na hora da geração) ao conservador (Fio B de 90% a partir de 2028 e 20% de consumo simultâneo); a conta média é o meio dessa faixa. Geração com 4,8 horas de sol por dia e 78% de rendimento; perda de 0,5% ao ano nos painéis. Sem reajustes de tarifa e sem iluminação pública. O valor exato é calculado pela equipe Priori na visita técnica.</p></details>
   </div>
 </section>
@@ -624,7 +651,7 @@ const UNIDADES = [
     $('#save').textContent=brl(Math.round(r.save));
     $('#saveYear').textContent=Math.round(r.pct)+'% da conta · '+brl(Math.round(r.year))+' por ano';
     $('#kwp').textContent=num(r.kwp,2)+' kWp';
-    $('#mods').textContent=Math.round(r.mods)+(Math.round(r.mods)===1?' módulo':' módulos')+' · '+Math.round(r.area)+' m²';
+    $('#mods').innerHTML=Math.round(r.mods)+(Math.round(r.mods)===1?' módulo':' módulos')+' <small class="area">'+Math.round(r.area)+' m² de telhado</small>';
     $('#newBill').textContent=brl(Math.round(r.nova));
     const a=Math.round(r.pMin), b=Math.round(r.pMax);
     $('.pay').innerHTML=b-a<3?`Você pagará cerca de <b>${brl(a)}</b> por mês`:`Você pagará de <b>${brl(a)}</b> a <b>${brl(b)}</b> por mês`;
