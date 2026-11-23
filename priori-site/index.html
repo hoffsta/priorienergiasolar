@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priori Energia Solar · Energia solar e mobilidade elétrica no PR e MS</title>
+<meta name="description" content="Priori: energia solar residencial, rural e empresarial com financiamento em até 72x, e mobilidade elétrica (bikes, scooters e triciclos) no carnê em até 48x. Unidades em Altônia, Loanda, Palotina, Umuarama e Naviraí.">
+<meta name="theme-color" content="#0a1949">
+<meta property="og:title" content="Priori · A energia que te move">
+<meta property="og:image" content="img/hero-usina.jpg">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Priori Energia Solar","slogan":"A energia que te move","telephone":"+55 44 9879-3606","address":{"@type":"PostalAddress","streetAddress":"Av. 7 de Setembro, 169","addressLocality":"Altônia","addressRegion":"PR","postalCode":"85550-009","addressCountry":"BR"},"areaServed":["Altônia","Loanda","Palotina","Umuarama","Naviraí"]}
+</script>
+<style>
+:root{
+  --navy:#0a1949;
+  --deep:#060f30;
+  --night:#040a22;
+  --sun:#ffc61f;
+  --amber:#f59e0b;
+  --sun-grad:linear-gradient(120deg,#ffd93a 0%,#ffb21f 55%,#f08c12 100%);
+  --paper:#f3f5fa;
+  --ink:#0b1430;
+  --mute:#5d6683;
+  --mute-d:#9aa3c2;
+  --line:rgba(10,25,73,.12);
+  --line-d:rgba(255,255,255,.12);
+  --display:"Sora",system-ui,sans-serif;
+  --sans:"Manrope",system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px,4.5vw,72px);
+  --hdr:84px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--night);overflow-x:clip;overscroll-behavior-x:none}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--sun);outline-offset:4px}
+::selection{background:var(--sun);color:var(--navy)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1}
+.gold{background:var(--sun-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec{padding:clamp(96px,14vh,160px) var(--pad)}
+.dark{background:var(--deep);color:#fff}
+.h2{font-size:clamp(2.6rem,6.2vw,6rem)}
+.lede{font-size:1.1rem;color:var(--mute);max-width:44ch}
+.dark .lede{color:var(--mute-d)}
+
+/* grão */
+body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* logo */
+.logo{display:inline-flex;align-items:baseline;font-family:var(--display);font-weight:700;letter-spacing:-.045em;line-height:1;color:currentColor}
+.logo svg{width:.84em;height:.84em;margin:0 -.01em 0 -.03em;transform:translateY(.12em);flex:none}
+
+/* ============ PRELOADER ============ */
+.pre{position:fixed;inset:0;z-index:1000;background:var(--navy);color:#fff;display:grid;place-items:center;clip-path:circle(150% at 50% 50%)}
+.pre .sunmark{width:min(120px,28vw);aspect-ratio:1}
+.pre .sunmark svg{display:block}
+.pre .foot{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(28px,6vh,56px);display:flex;justify-content:space-between;align-items:flex-end;color:var(--mute-d);font-size:.95rem}
+.pre .count{font-family:var(--display);font-weight:700;font-size:clamp(3.4rem,9vw,7rem);line-height:.8;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+
+/* ============ CURSOR ============ */
+.cursor{position:fixed;left:0;top:0;z-index:998;pointer-events:none;display:none}
+@media (hover:hover) and (pointer:fine){
+  .cursor{display:grid;place-items:center;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--sun);mix-blend-mode:normal;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease)}
+  .cursor span{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--navy);opacity:0;transition:opacity .2s;white-space:nowrap}
+  .cursor.lg{width:92px;height:92px;margin:-46px 0 0 -46px}
+  .cursor.lg span{opacity:1}
+}
+
+/* ============ HEADER ============ */
+.hdr{position:fixed;inset:0 0 auto;z-index:600;height:var(--hdr);padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;gap:20px;color:#fff;transition:transform .7s var(--ease),background .4s,color .4s,box-shadow .4s}
+.hdr.solid{background:rgba(243,245,250,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);color:var(--navy);box-shadow:0 1px 0 var(--line)}
+.hdr.hide{transform:translateY(-110%)}
+.hdr .logo{font-size:1.9rem}
+.nav{display:flex;gap:2px}
+.nav a{padding:10px 16px;border-radius:99px;font-weight:500;font-size:.96rem;opacity:.85;transition:opacity .3s,background .3s}
+.nav a:hover{opacity:1;background:rgba(255,255,255,.12)}
+.hdr.solid .nav a:hover{background:rgba(10,25,73,.07)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:99px;background:var(--sun);color:var(--navy);font-family:var(--display);font-weight:600;font-size:.95rem;will-change:transform;transition:background .3s}
+.pill:hover{background:#ffd54d}
+.pill svg,.btn svg{width:19px;height:19px;flex:none}
+.menu-btn{display:none;align-items:center;gap:10px;padding:12px 18px;border-radius:99px;border:1px solid currentColor;font-weight:600}
+.menu-btn i{position:relative;width:16px;height:8px}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .5s var(--ease),top .5s var(--ease)}
+.menu-btn i::before{top:0}.menu-btn i::after{top:6.5px}
+.menu-open .menu-btn i::before{top:3.25px;transform:rotate(45deg)}
+.menu-open .menu-btn i::after{top:3.25px;transform:rotate(-45deg)}
+.menu-open .hdr{color:#fff;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.mob{position:fixed;inset:0;z-index:550;background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:calc(var(--hdr) + 20px) var(--pad) 40px;clip-path:circle(0% at 100% 0%);visibility:hidden;transition:clip-path .9s var(--ease),visibility 0s .9s}
+.menu-open .mob{clip-path:circle(150% at 100% 0%);visibility:visible;transition:clip-path .9s var(--ease)}
+.mob a{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;line-height:1.15}
+.mob small{margin-top:26px;color:var(--mute-d)}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;color:#fff;isolation:isolate;background:var(--night)}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img{width:100%;height:115%;object-fit:cover;object-position:50% 30%;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(4,10,34,.55) 0%,rgba(4,10,34,.1) 30%,rgba(4,10,34,.35) 55%,rgba(4,10,34,.94) 100%),
+  linear-gradient(90deg,rgba(4,10,34,.6) 0%,rgba(4,10,34,0) 60%)}
+.hero-in{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(120px,20vh,190px)}
+.hero h1{font-size:clamp(3.2rem,9.6vw,10.4rem);line-height:.9;letter-spacing:-.05em;max-width:11ch}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero .word{display:inline-block;white-space:nowrap}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-top:clamp(20px,3.5vh,36px)}
+.hero-row p{max-width:44ch;font-size:1.1rem;color:rgba(255,255,255,.86)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:17px 28px;border-radius:99px;font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em;will-change:transform;transition:background .3s,color .3s,border-color .3s}
+.btn-sun{background:var(--sun);color:var(--navy)}
+.btn-sun:hover{background:#ffd54d}
+.btn-glass{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff}
+.btn-glass:hover{border-color:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:#13277a}
+.facts{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(24px,4vh,40px);display:grid;grid-template-columns:repeat(3,1fr);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.facts div{padding:18px 24px;display:flex;align-items:center;gap:14px;font-size:.95rem;color:rgba(255,255,255,.82)}
+.facts div+div{border-left:1px solid rgba(255,255,255,.14)}
+.facts b{font-family:var(--display);font-size:1.5rem;letter-spacing:-.03em;color:var(--sun);white-space:nowrap}
+
+/* ============ SIMULADOR ============ */
+.sim{background:var(--deep);color:#fff;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,6vw,110px);align-items:center;position:relative;overflow:hidden}
+.sim::before{content:"";position:absolute;width:70vw;height:70vw;right:-25vw;top:-30vw;border-radius:50%;background:radial-gradient(circle,rgba(255,198,31,.16),transparent 60%);pointer-events:none}
+.sim h2{font-size:clamp(2.6rem,5.4vw,5.2rem);margin-bottom:22px}
+.bill{margin-top:clamp(30px,5vh,50px)}
+.bill label{display:block;color:var(--mute-d);margin-bottom:6px}
+.bill output{display:block;font-family:var(--display);font-weight:700;font-size:clamp(3rem,6vw,5.4rem);letter-spacing:-.05em;line-height:1;margin-bottom:22px;font-variant-numeric:tabular-nums}
+.range{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--sun) 0 var(--p,20%),rgba(255,255,255,.14) var(--p,20%) 100%);outline:none}
+.range::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:6px solid var(--sun);box-shadow:0 6px 20px rgba(255,198,31,.5);cursor:grab}
+.range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:6px solid var(--sun);cursor:grab}
+.range:focus-visible::-webkit-slider-thumb{outline:3px solid #fff;outline-offset:3px}
+.ticks{display:flex;justify-content:space-between;color:var(--mute-d);font-size:.85rem;margin-top:10px}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.quick button{padding:9px 16px;border-radius:99px;border:1px solid var(--line-d);color:rgba(255,255,255,.8);font-size:.92rem;transition:border-color .3s,background .3s,color .3s}
+.quick button:hover,.quick button.on{border-color:var(--sun);color:#fff;background:rgba(255,198,31,.1)}
+.result{position:relative;border-radius:28px;padding:clamp(26px,3.4vw,46px);background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.gauge{width:100%;max-width:440px;display:block;margin:0 auto 8px;overflow:visible}
+.save-label{text-align:center;color:var(--mute-d);margin-top:-70px}
+.save{text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,5vw,4.6rem);letter-spacing:-.05em;line-height:1.05;font-variant-numeric:tabular-nums}
+.save small{display:block;font-family:var(--sans);font-weight:500;font-size:1rem;letter-spacing:0;color:var(--mute-d);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border-radius:18px;overflow:hidden;margin:30px 0 26px}
+.stats div{background:var(--deep);padding:16px 18px}
+.stats span{display:block;color:var(--mute-d);font-size:.88rem}
+.stats b{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.result .btn{width:100%;justify-content:center}
+.disc{font-size:.82rem;color:var(--mute-d);margin-top:16px;line-height:1.5}
+
+/* ============ SOLAR: painéis expansíveis ============ */
+.solar-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,6vh,70px)}
+.panels{display:flex;gap:14px;height:min(76vh,700px)}
+.panel{position:relative;flex:1;min-width:0;border-radius:26px;overflow:hidden;isolation:isolate;cursor:pointer;transition:flex 1s var(--ease);color:#fff}
+.panel.on{flex:3.2}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.panel.on img{transform:scale(1)}
+.panel::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,10,34,.15) 30%,rgba(4,10,34,.9) 100%);transition:background .6s}
+.panel:not(.on)::after{background:linear-gradient(180deg,rgba(4,10,34,.35),rgba(4,10,34,.85))}
+.panel .tab{position:absolute;left:26px;top:26px;font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:-.03em;writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity .4s}
+.panel.on .tab{opacity:0}
+.panel .body{position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3vw,44px);opacity:0;transform:translateY(24px);transition:opacity .5s,transform .8s var(--ease)}
+.panel.on .body{opacity:1;transform:none;transition-delay:.25s}
+.panel h3{font-size:clamp(2.4rem,4.4vw,4.2rem);margin-bottom:12px}
+.panel p{max-width:46ch;color:rgba(255,255,255,.86);font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips span{padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:.9rem}
+.chips span.hl{background:var(--sun);color:var(--navy);border-color:var(--sun);font-weight:600}
+
+/* ============ PROCESSO (fixado) ============ */
+.proc{position:relative;background:var(--navy);color:#fff;height:100svh;min-height:640px;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;gap:20px;padding:calc(var(--hdr) + 20px) var(--pad) clamp(30px,6vh,60px)}
+.proc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;position:relative;z-index:2}
+.proc-head h2{font-size:clamp(2.4rem,5vw,4.8rem)}
+.sky{position:relative;min-height:0;margin:0 calc(var(--pad) * -.4);pointer-events:none}
+.sky svg{width:100%;height:100%;overflow:visible}
+.glow{position:absolute;width:44vmin;height:44vmin;margin:-22vmin 0 0 -22vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,198,31,.42),transparent 62%);pointer-events:none;left:0;top:0;will-change:transform;display:grid;place-items:center}
+.glow::after{content:"";width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3b0,#ffc61f 45%,#f59e0b);box-shadow:0 0 30px 8px rgba(255,198,31,.55)}
+.steps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{padding-top:18px;border-top:2px solid rgba(255,255,255,.16);opacity:.38;transition:opacity .5s,border-color .5s}
+.step.on{opacity:1;border-color:var(--sun)}
+.step b{display:block;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--sun);margin-bottom:10px}
+.step h3{font-size:clamp(1.4rem,2vw,1.9rem);letter-spacing:-.03em;margin-bottom:8px}
+.step p{color:rgba(255,255,255,.75);font-size:.98rem;max-width:30ch}
+
+/* ============ FINANCIAMENTO ============ */
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px)}
+.fin-card{position:relative;border-radius:30px;padding:clamp(30px,4vw,56px);overflow:hidden;min-height:440px;display:flex;flex-direction:column;justify-content:space-between}
+.fin-card.a{background:var(--navy);color:#fff}
+.fin-card.b{background:#fff;border:1px solid var(--line)}
+.fin-card .num{font-family:var(--display);font-weight:700;font-size:clamp(7rem,17vw,16rem);line-height:.8;letter-spacing:-.07em;font-variant-numeric:tabular-nums}
+.fin-card.b .num{color:var(--navy)}
+.fin-card h3{font-size:clamp(1.6rem,2.4vw,2.2rem);letter-spacing:-.03em;margin-bottom:10px}
+.fin-card p{max-width:40ch;opacity:.8}
+.fin-card .tag{display:inline-flex;align-self:flex-start;padding:8px 14px;border-radius:99px;font-size:.88rem;font-weight:600;background:rgba(255,198,31,.15);color:var(--sun)}
+.fin-card.b .tag{background:rgba(10,25,73,.07);color:var(--navy)}
+.fin-head{margin-bottom:clamp(40px,6vh,64px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+
+/* ============ MOBILIDADE ============ */
+.mob-sec{background:#fff}
+.mob-head{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:end;margin-bottom:clamp(40px,6vh,70px)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.prod{position:relative;border-radius:24px;overflow:hidden;background:var(--paper);display:flex;flex-direction:column;transform-style:preserve-3d;will-change:transform}
+.prod .ph{position:relative;aspect-ratio:1;overflow:hidden}
+.prod .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 70%;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.05)}
+.prod .badge{position:absolute;left:14px;top:14px;padding:7px 12px;border-radius:99px;background:var(--sun);color:var(--navy);font-weight:700;font-size:.8rem}
+.prod .info{padding:22px 22px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.prod small{color:var(--mute);font-size:.88rem}
+.prod h3{font-size:1.5rem;letter-spacing:-.03em}
+.prod p{color:var(--mute);font-size:.96rem;flex:1}
+.prod button{margin-top:12px;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--navy);border-bottom:2px solid var(--sun);padding-bottom:3px}
+.mob-band{margin-top:22px;border-radius:24px;background:var(--navy);color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.mob-band b{font-family:var(--display);font-size:1.3rem;letter-spacing:-.02em}
+.mob-band b em{font-style:normal;color:var(--sun)}
+
+/* ============ UNIDADES ============ */
+.units-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,6vw,100px);align-items:start}
+.units{list-style:none;border-top:1px solid var(--line)}
+.units a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);position:relative}
+.units a::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--sun);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.units a:hover::before,.units a:focus-visible::before{transform:scaleX(1)}
+.units h3{font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.045em;transition:transform .6s var(--ease)}
+.units a:hover h3{transform:translateX(10px)}
+.units small{display:block;color:var(--mute);font-size:.92rem;margin-top:6px}
+.units .go{width:54px;height:54px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;transition:background .3s,color .3s}
+.units a:hover .go{background:var(--sun);color:var(--navy)}
+.units .go svg{width:22px;height:22px}
+.support{display:grid;gap:10px;margin-top:30px}
+.support a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 20px;border-radius:16px;background:#fff;border:1px solid var(--line);transition:border-color .3s,transform .5s var(--ease)}
+.support a:hover{border-color:var(--sun);transform:translateX(4px)}
+.support b{font-family:var(--display);font-weight:600;letter-spacing:-.02em}
+.support span{color:var(--mute);font-size:.9rem}
+form{display:grid;gap:20px;padding:clamp(24px,3vw,40px);border-radius:26px;background:var(--navy);color:#fff;position:sticky;top:calc(var(--hdr) + 20px)}
+form h3{font-size:1.9rem;letter-spacing:-.035em}
+.field{display:grid;gap:6px;font-size:.9rem;color:var(--mute-d)}
+.field input,.field select,.field textarea{font-size:1.05rem;color:#fff;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.22);border-radius:0;padding:10px 0;outline:none;transition:border-color .3s}
+.field select option{color:#000}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sun)}
+.field textarea{min-height:80px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+form .btn{justify-content:center}
+.note{font-size:.85rem;color:var(--mute-d)}
+
+/* ============ FOOTER ============ */
+footer{background:var(--night);color:#fff;padding:clamp(60px,10vh,110px) var(--pad) 26px;overflow:hidden}
+.ft{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;color:var(--mute-d);font-size:.96rem}
+.ft b{display:block;color:#fff;font-family:var(--display);font-weight:600;margin-bottom:10px}
+.ft a:hover{color:#fff}
+.ft nav{display:grid;gap:6px}
+.wordmark{margin:clamp(50px,9vh,90px) 0 22px;white-space:nowrap;line-height:.85}
+.wordmark .logo{font-size:100px}
+.fb{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line-d);padding:20px 90px 0 0;font-size:.86rem;color:var(--mute-d)}
+
+.wa{position:fixed;right:20px;bottom:20px;z-index:500;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 16px 34px -12px rgba(37,211,102,.65);opacity:0;pointer-events:none;transform:scale(.6);transition:opacity .4s,transform .5s var(--ease)}
+.wa.show{opacity:1;pointer-events:auto;transform:none}
+.wa svg{width:30px;height:30px;color:#fff}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width:1080px){
+  .products{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:26px}
+}
+@media (max-width:900px){
+  .nav,.hdr .pill{display:none}
+  .menu-btn{display:inline-flex}
+  .sim,.units-wrap,.mob-head{grid-template-columns:1fr}
+  .panels{flex-direction:column;height:auto}
+  .panel,.panel.on{flex:none;height:72svh;min-height:480px}
+  .panel .tab{display:none}
+  .panel .body{opacity:1;transform:none}
+  .panel::after,.panel:not(.on)::after{background:linear-gradient(180deg,rgba(4,10,34,0) 20%,rgba(4,10,34,.75) 50%,rgba(4,10,34,.95) 100%)}
+  .panel img{transform:none}
+  .proc{height:auto;min-height:0;display:block}
+  .sky,.glow{display:none}
+  .steps{grid-template-columns:1fr;margin-top:40px}
+  .step{opacity:1;border-color:var(--sun)}
+  .fin{grid-template-columns:1fr}
+  .fin-card{min-height:340px}
+  form{position:static}
+  .ft{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  :root{--hdr:72px}
+  body{font-size:16px}
+  .hdr .logo{font-size:1.6rem}
+  .hero-in{bottom:196px}
+  .hero-row p{font-size:.98rem}
+  .ctas .btn-glass{display:none}
+  .hero-row{margin-top:18px}
+  .hero h1{font-size:clamp(3rem,15.5vw,4.6rem)}
+  .hero-row p{font-size:1rem}
+  .ctas .btn{flex:1 1 100%;justify-content:center}
+  .facts{grid-template-columns:1fr;border-radius:16px}
+  .facts div{padding:9px 16px;font-size:.88rem}
+  .facts div+div{border-left:0;border-top:1px solid rgba(255,255,255,.14)}
+  .facts b{font-size:1.15rem}
+  .hero-row{gap:20px}
+  .products{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .stats b{font-size:1.2rem}
+  .save-label{margin-top:-46px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd92e"/><stop offset="1" stop-color="#f7a21f"/></linearGradient>
+    <linearGradient id="sg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc21f"/><stop offset="1" stop-color="#f08d14"/></linearGradient>
+    <mask id="sunhole"><rect width="100" height="100" fill="#fff"/><path d="M71 22C50 22 33 41 30 74c21 0 38-19 41-52z" fill="#000"/></mask>
+  </defs>
+  <symbol id="sun" viewBox="0 0 100 100"><g mask="url(#sunhole)"><circle cx="50" cy="50" r="48" fill="url(#sg1)"/><path d="M71 22C76 30 82 42 82 54c0 22-17 42-40 44 22 4 52-12 56-44 1-12-3-24-10-33z" fill="url(#sg2)" opacity=".9"/></g></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1112 21.8zm8.4-18.2A11.8 11.8 0 001.8 17.9L.1 24l6.3-1.7a11.8 11.8 0 0017.6-10.2c0-3.2-1.2-6.1-3.5-8.4z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="sunmark" id="preSun"><svg viewBox="0 0 100 100" width="100%" height="100%"><use href="#sun"/></svg></div>
+  <div class="foot"><span>Priori<br>A energia que te move</span><span class="count" id="count">0</span></div>
+</div>
+<div class="cursor" id="cursor"><span id="cursorTxt">Ver</span></div>
+
+<header class="hdr" id="hdr">
+  <a href="#inicio" aria-label="Priori, início"><span class="logo">Pri<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#sun"/></svg>ri</span></a>
+  <nav class="nav" aria-label="Principal">
+    <a href="#solar">Energia solar</a>
+    <a href="#simulador">Simulador</a>
+    <a href="#mobilidade">Mobilidade elétrica</a>
+    <a href="#unidades">Unidades</a>
+  </nav>
+  <a class="pill magnetic" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Falar com a Priori</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mob"><i></i>Menu</button>
+</header>
+<nav class="mob" id="mob" aria-label="Menu">
+  <a href="#solar">Energia solar</a><a href="#simulador">Simulador</a><a href="#mobilidade">Mobilidade</a><a href="#financiamento">Financiamento</a><a href="#unidades">Unidades</a>
+  <small>Altônia · Loanda · Palotina · Umuarama · Naviraí</small>
+</nav>
+
+<main id="inicio">
+<section class="hero" aria-label="Apresentação">
+  <div class="hero-media" id="heroMedia"><img src="img/hero-usina.jpg" alt="Usina de painéis solares ao pôr do sol"></div>
+  <div class="hero-in">
+    <h1 aria-label="A energia que te move.">
+      <span class="ln"><span class="split">A energia</span></span>
+      <span class="ln"><span class="split">que te <span class="gold">move.</span></span></span>
+    </h1>
+    <div class="hero-row">
+      <p>Energia solar para sua casa, sua propriedade rural ou sua empresa, e mobilidade elétrica para o dia a dia. Do projeto à instalação, com financiamento facilitado.</p>
+      <div class="ctas">
+        <a class="btn btn-sun magnetic" href="#simulador">Simular minha economia<svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass magnetic" href="#mobilidade">Mobilidade elétrica</a>
+      </div>
+    </div>
+  </div>
+  <div class="facts">
+    <div><b>Até 72x</b>no financiamento solar</div>
+    <div><b>Até 48x</b>no carnê da mobilidade elétrica</div>
+    <div><b>5 unidades</b>no PR e no MS</div>
+  </div>
+</section>
+
+<section class="sec sim" id="simulador" aria-labelledby="sim-t">
+  <div>
+    <h2 id="sim-t">Quanto a sua conta de luz <span class="gold">pode cair?</span></h2>
+    <p class="lede">Arraste e informe o valor médio da sua conta. A gente mostra uma estimativa do sistema e da economia.</p>
+    <div class="bill">
+      <label for="bill">Valor médio da conta de luz por mês</label>
+      <output id="billOut" for="bill">R$ 450</output>
+      <input class="range" id="bill" type="range" min="100" max="5000" step="50" value="450" aria-describedby="disc">
+      <div class="ticks"><span>R$ 100</span><span>R$ 5.000</span></div>
+      <div class="quick" aria-label="Valores comuns"><button type="button" data-v="250">Casa pequena</button><button type="button" data-v="600">Casa grande</button><button type="button" data-v="1800">Propriedade rural</button><button type="button" data-v="4000">Empresa</button></div>
+    </div>
+  </div>
+  <div class="result" aria-live="polite">
+    <svg class="gauge" viewBox="0 0 440 240" aria-hidden="true">
+      <path d="M30 220A190 190 0 0 1 410 220" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14" stroke-linecap="round"/>
+      <path id="gArc" d="M30 220A190 190 0 0 1 410 220" fill="none" stroke="url(#gGrad)" stroke-width="14" stroke-linecap="round"/>
+      <defs><linearGradient id="gGrad" x1="0" x2="1"><stop offset="0" stop-color="#f08c12"/><stop offset="1" stop-color="#ffd93a"/></linearGradient></defs>
+      <g id="gSun"><circle r="22" fill="rgba(255,198,31,.25)"/><circle r="12" fill="#ffd93a"/></g>
+    </svg>
+    <p class="save-label">Economia estimada por mês</p>
+    <p class="save"><span id="save">R$ 383</span><small id="saveYear">R$ 4.590 por ano</small></p>
+    <div class="stats">
+      <div><span>Sistema sugerido</span><b id="kwp">4,4 kWp</b></div>
+      <div><span>Painéis solares</span><b id="mods">8 módulos</b></div>
+      <div><span>Área de telhado</span><b id="area">21 m²</b></div>
+      <div><span>Economia em 25 anos</span><b id="y25">R$ 114 mil</b></div>
+    </div>
+    <a class="btn btn-sun magnetic" id="simCta" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Quero um orçamento com esse valor</a>
+    <p class="disc" id="disc">Estimativa ilustrativa com tarifa média de R$ 0,95/kWh, 4,5 horas de sol por dia, painéis de 580 W e economia de 85% na conta. O valor exato é calculado pela equipe Priori na visita técnica.</p>
+  </div>
+</section>
+
+<section class="sec" id="solar" aria-labelledby="solar-t">
+  <div class="solar-head">
+    <h2 class="h2" id="solar-t">Energia solar<br>para cada <span class="gold">necessidade</span></h2>
+    <p class="lede">Projetos sob medida para o seu consumo e o seu espaço. Toque em cada área para ver os detalhes.</p>
+  </div>
+  <div class="panels" id="panels">
+    <article class="panel on" tabindex="0" data-cursor="Abrir">
+      <img src="img/residencial.jpg" alt="Casa com painéis solares no telhado" loading="lazy">
+      <span class="tab" aria-hidden="true">Residencial</span>
+      <div class="body"><h3>Residencial</h3><p>Conta de luz menor todo mês e um imóvel mais valorizado. Dimensionamos o sistema pelo seu consumo e pelo seu telhado.</p>
+        <div class="chips"><span>Telhado cerâmico, metálico ou laje</span><span>Acompanhamento da geração pelo celular</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+    <article class="panel" tabindex="0" data-cursor="Abrir">
+      <img src="img/rural.jpg" alt="Usina solar em área rural cercada por plantações" loading="lazy">
+      <span class="tab" aria-hidden="true">Rural</span>
+      <div class="body"><h3>Rural</h3><p>Energia para aviários, irrigação, ordenha e armazenagem. Sistemas em solo ou no telhado, pensados para o consumo do campo.</p>
+        <div class="chips"><span>Usinas em solo</span><span>Granjas, aviários e irrigação</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+    <article class="panel" tabindex="0" data-cursor="Abrir">
+      <img src="img/empresarial.jpg" alt="Galpões industriais cobertos com painéis solares" loading="lazy">
+      <span class="tab" aria-hidden="true">Empresarial</span>
+      <div class="body"><h3>Empresarial</h3><p>Menos custo fixo e mais previsibilidade para o caixa da empresa, mesmo com os reajustes de tarifa.</p>
+        <div class="chips"><span>Comércio e indústria</span><span>Projetos para alto consumo</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="proc" id="processo" aria-labelledby="proc-t">
+  <div class="proc-head">
+    <h2 id="proc-t">Do sol até<br>a sua <span class="gold">tomada</span></h2>
+    <p class="lede">A Priori cuida de todas as etapas. Você só acompanha.</p>
+  </div>
+  <div class="sky" aria-hidden="true">
+    <svg viewBox="0 0 1000 400" preserveAspectRatio="none">
+      <path id="arcBase" d="M20 395C200 20 800 20 980 395" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="3 9"/>
+      <path id="arcFill" d="M20 395C200 20 800 20 980 395" fill="none" stroke="#ffc61f" stroke-width="3"/>
+    </svg>
+  </div>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+  <div class="steps" id="steps">
+    <div class="step on"><b>1</b><h3>Conversa e simulação</h3><p>Você envia a conta de luz pelo WhatsApp e recebe uma primeira proposta.</p></div>
+    <div class="step"><b>2</b><h3>Visita técnica e projeto</h3><p>Avaliamos o telhado ou o terreno e desenhamos o sistema ideal.</p></div>
+    <div class="step"><b>3</b><h3>Homologação</h3><p>Cuidamos da documentação junto à distribuidora de energia.</p></div>
+    <div class="step"><b>4</b><h3>Instalação e monitoramento</h3><p>Instalamos, ligamos o sistema e acompanhamos a geração com você.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="financiamento" aria-labelledby="fin-t">
+  <div class="fin-head">
+    <h2 class="h2" id="fin-t">Parcelas que<br>cabem no <span class="gold">bolso</span></h2>
+    <p class="lede">Em muitos casos, a parcela do sistema solar fica próxima do valor que você já paga de conta de luz.</p>
+  </div>
+  <div class="fin">
+    <div class="fin-card a">
+      <span class="tag">Energia solar</span>
+      <div><div class="num gold" data-to="72">72x</div></div>
+      <div><h3>Financiamento em até 72 parcelas</h3><p>Para sistemas residenciais, rurais e empresariais, com análise de crédito.</p></div>
+    </div>
+    <div class="fin-card b">
+      <span class="tag">Mobilidade elétrica</span>
+      <div><div class="num" data-to="48">48x</div></div>
+      <div><h3>Carnê facilitado em até 48x</h3><p>Bikes, scooters e triciclos elétricos com parcelas mensais no carnê.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec mob-sec" id="mobilidade" aria-labelledby="mob-t">
+  <div class="mob-head">
+    <h2 class="h2" id="mob-t">Mobilidade <span class="gold">elétrica</span></h2>
+    <p class="lede">Bikes, scooters e triciclos para ir ao trabalho, à escola ou ao mercado gastando muito menos que com combustível.</p>
+  </div>
+  <div class="products">
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/bike-ppower.jpg" alt="Bike elétrica P-Power azul" loading="lazy"></div>
+      <div class="info"><small>Bike elétrica</small><h3>P-Power</h3><p>Prática para o dia a dia, com bagageiro e baú.</p><button type="button" class="js-prod" data-p="Bike elétrica P-Power">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/scooter-red.jpg" alt="Scooter elétrica vermelha com pneus largos" loading="lazy"></div>
+      <div class="info"><small>Scooter elétrica</small><h3>Pneu largo</h3><p>Pneus largos, conforto e economia para o seu dia a dia.</p><button type="button" class="js-prod" data-p="Scooter elétrica de pneu largo (vermelha)">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/scooter-jet.jpg" alt="Scooter elétrica preta modelo Jet com baú" loading="lazy"></div>
+      <div class="info"><small>Scooter elétrica</small><h3>Jet</h3><p>Estilo, agilidade e desempenho para ir mais longe.</p><button type="button" class="js-prod" data-p="Scooter elétrica Jet">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/triciclo.jpg" alt="Triciclo elétrico branco e vinho com baú" loading="lazy"></div>
+      <div class="info"><small>Triciclo elétrico</small><h3>Triciclo com baú</h3><p>Mais espaço, conforto e estabilidade para levar mais com segurança.</p><button type="button" class="js-prod" data-p="Triciclo elétrico">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+  </div>
+  <div class="mob-band"><b>Leve hoje e pague no <em>carnê em até 48x</em></b><a class="btn btn-sun magnetic" href="https://wa.link/7mlw76" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Falar com a equipe de mobilidade</a></div>
+</section>
+
+<section class="sec" id="unidades" aria-labelledby="un-t">
+  <h2 class="h2" id="un-t" style="margin-bottom:clamp(40px,6vh,70px)">Uma Priori<br><span class="gold">perto de você</span></h2>
+  <div class="units-wrap">
+    <div>
+      <ul class="units" id="units"></ul>
+      <div class="support">
+        <a href="https://wa.me/5544998304538" target="_blank" rel="noopener"><span><b>Suporte energia solar</b><br><span>Dúvidas sobre o seu sistema</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+        <a href="https://wa.link/7mlw76" target="_blank" rel="noopener"><span><b>Suporte mobilidade elétrica</b><br><span>Bikes, scooters e triciclos</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+        <a href="https://wa.me/5544998566398" target="_blank" rel="noopener"><span><b>Pós-venda</b><br><span>Atendimento depois da compra</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+      </div>
+    </div>
+    <form id="form" novalidate>
+      <h3>Peça seu orçamento</h3>
+      <label class="field">Assunto
+        <select name="assunto"><option>Energia solar</option><option>Mobilidade elétrica</option></select>
+      </label>
+      <label class="field">Unidade mais próxima
+        <select name="unidade" id="unitSel"></select>
+      </label>
+      <div class="row">
+        <label class="field">Seu nome<input name="nome" autocomplete="name"></label>
+        <label class="field">Cidade<input name="cidade" autocomplete="address-level2"></label>
+      </div>
+      <label class="field">Mensagem<textarea name="msg" placeholder="Valor da conta de luz, modelo de interesse, dúvidas…"></textarea></label>
+      <button class="btn btn-sun magnetic" type="submit"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Enviar pelo WhatsApp</button>
+      <p class="note" id="note">Abre o WhatsApp da unidade escolhida com a mensagem pronta.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ft">
+    <div><b>Priori Energia Solar</b>Av. 7 de Setembro, 169<br>Altônia · PR · 85550-009</div>
+    <nav aria-label="Rodapé"><b>Navegue</b><a href="#solar">Energia solar</a><a href="#simulador">Simulador</a><a href="#mobilidade">Mobilidade elétrica</a><a href="#unidades">Unidades</a></nav>
+    <div><b>Unidades</b>Altônia, Loanda, Palotina e Umuarama (PR)<br>Naviraí (MS)</div>
+  </div>
+  <div class="wordmark"><span class="logo" id="wordmark">Pri<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#sun"/></svg>ri</span></div>
+  <div class="fb"><span>© <span id="y"></span> Priori · A energia que te move</span><span>Energia solar e mobilidade elétrica</span></div>
+</footer>
+
+<a class="wa" id="waFloat" href="https://wa.me/554498793606?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Priori." target="_blank" rel="noopener" aria-label="Chamar a Priori no WhatsApp"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<script>
+/* ====== CONTATOS (edite aqui) ======
+   Número no formato 55 + DDD + número, ou um link completo de WhatsApp. */
+const UNIDADES = [
+  {cidade:"Altônia",   uf:"PR", info:"Av. 7 de Setembro, 169", wa:"554498793606"},
+  {cidade:"Loanda",    uf:"PR", info:"Unidade Loanda",          wa:"https://wa.me/message/S2FMKQFOJYETM1"},
+  {cidade:"Palotina",  uf:"PR", info:"Unidade Palotina",        wa:"554498380659"},
+  {cidade:"Umuarama",  uf:"PR", info:"Unidade Umuarama",        wa:"554498378141"},
+  {cidade:"Naviraí",   uf:"MS", info:"Unidade Naviraí",         wa:"5567992412980"}
+];
+/* =================================== */
+(function(){
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const hasGsap=!!(window.gsap&&window.ScrollTrigger);
+  const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  const num=(v,d=0)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+  $('#y').textContent=new Date().getFullYear();
+  const waHref=(target,text)=>/^https?:/.test(target)?target:`https://wa.me/${target}?text=${encodeURIComponent(text)}`;
+  const openLink=href=>{const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener';document.body.append(a);a.click();a.remove()};
+
+  /* ---------- unidades ---------- */
+  const list=$('#units'), sel=$('#unitSel');
+  UNIDADES.forEach(u=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<a href="${waHref(u.wa,'Olá! Vim pelo site da Priori.')}" target="_blank" rel="noopener" data-cursor="Conversar"><span><h3>${u.cidade}</h3><small>${u.uf} · ${u.info}</small></span><span class="go"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span></a>`;
+    list.append(li);
+    const o=document.createElement('option');o.textContent=`${u.cidade} (${u.uf})`;o.value=u.cidade;sel.append(o);
+  });
+
+  /* ---------- assinatura do rodapé na largura exata ---------- */
+  const wm=$('#wordmark');
+  const fit=()=>{wm.style.fontSize='100px';const w=wm.getBoundingClientRect().width,max=wm.parentElement.clientWidth;wm.style.fontSize=Math.floor(100*max/w*.985)+'px'};
+  fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit);
+
+  /* ---------- simulador ---------- */
+  const TARIFA=.95, HSP=4.5, PR=.8, MOD=.58, ECON=.85, AREA_MOD=2.6;
+  const bill=$('#bill'), out=$('#billOut'), arc=$('#gArc'), sun=$('#gSun');
+  const arcLen=arc.getTotalLength(); arc.style.strokeDasharray=arcLen;
+  const shown={save:0,year:0,kwp:0,mods:0,area:0,y25:0};
+  let simValue=450;
+  function calc(v){
+    const kwh=v/TARIFA, kwp=kwh/(HSP*30*PR), mods=Math.max(1,Math.ceil(kwp/MOD)), save=v*ECON;
+    return {save,year:save*12,kwp:mods*MOD,mods,area:mods*AREA_MOD,y25:save*12*25};
+  }
+  function paint(r){
+    $('#save').textContent=brl(Math.round(r.save));
+    $('#saveYear').textContent=brl(Math.round(r.year))+' por ano';
+    $('#kwp').textContent=num(r.kwp,1)+' kWp';
+    $('#mods').textContent=Math.round(r.mods)+(Math.round(r.mods)===1?' módulo':' módulos');
+    $('#area').textContent=Math.round(r.area)+' m²';
+    $('#y25').textContent=r.y25>=1e6?'R$ '+num(r.y25/1e6,1)+' mi':'R$ '+Math.round(r.y25/1000)+' mil';
+  }
+  function update(animate){
+    const v=+bill.value; simValue=v;
+    out.textContent=brl(v);
+    const p=(v-bill.min)/(bill.max-bill.min);
+    bill.style.setProperty('--p',(p*100)+'%');
+    const t=Math.sqrt(p); /* curva suave: contas pequenas também enchem o arco */
+    arc.style.strokeDashoffset=arcLen*(1-Math.max(.04,t));
+    const pt=arc.getPointAtLength(arcLen*Math.max(.04,t)); sun.setAttribute('transform',`translate(${pt.x} ${pt.y})`);
+    const r=calc(v);
+    if(animate&&hasGsap&&!reduce){gsap.to(shown,{...r,duration:.6,ease:'power3.out',overwrite:true,onUpdate:()=>paint(shown)})}
+    else{Object.assign(shown,r);paint(shown)}
+    $$('.quick button').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
+  }
+  bill.addEventListener('input',()=>update(true));
+  $$('.quick button').forEach(b=>b.addEventListener('click',()=>{bill.value=b.dataset.v;update(true)}));
+  update(false);
+
+  /* ---------- formulário ---------- */
+  const form=$('#form');
+  $('#simCta').addEventListener('click',()=>{form.assunto.value='Energia solar';form.msg.value=`Minha conta de luz é de aproximadamente ${brl(simValue)} por mês. Gostaria de um orçamento de energia solar.`});
+  $$('.js-prod').forEach(b=>b.addEventListener('click',()=>{
+    form.assunto.value='Mobilidade elétrica';form.msg.value=`Tenho interesse em: ${b.dataset.p}. Gostaria de saber o preço e as condições no carnê.`;
+    const tgt=$('#unidades'); window.__lenis?window.__lenis.scrollTo(tgt,{duration:1.5}):tgt.scrollIntoView({behavior:'smooth'});
+  }));
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!form.nome.value.trim()){form.nome.focus();$('#note').textContent='Escreva seu nome para montar a mensagem.';return}
+    const u=UNIDADES.find(x=>x.cidade===form.unidade.value)||UNIDADES[0];
+    const t=`Olá, Priori ${u.cidade}! Vim pelo site.\n\n*Assunto:* ${form.assunto.value}\n*Nome:* ${form.nome.value.trim()}\n*Cidade:* ${form.cidade.value.trim()||'-'}\n*Mensagem:* ${form.msg.value.trim()||'-'}`;
+    if(/^https?:/.test(u.wa)){try{await navigator.clipboard.writeText(t);$('#note').textContent='Mensagem copiada. Cole no WhatsApp que vai abrir.'}catch(_){}}
+    openLink(waHref(u.wa,t));
+  });
+
+  /* ---------- painéis da energia solar ---------- */
+  const panels=$$('.panel');
+  const openPanel=p=>panels.forEach(x=>x.classList.toggle('on',x===p));
+  panels.forEach(p=>{
+    p.addEventListener('click',()=>openPanel(p));
+    p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPanel(p)}});
+    if(fine)p.addEventListener('mouseenter',()=>openPanel(p));
+  });
+
+  /* ---------- menu ---------- */
+  const menuBtn=$('#menuBtn');
+  const setMenu=o=>{document.body.classList.toggle('menu-open',o);menuBtn.setAttribute('aria-expanded',o);window.__lenis&&(o?window.__lenis.stop():window.__lenis.start())};
+  menuBtn.addEventListener('click',()=>setMenu(!document.body.classList.contains('menu-open')));
+  $$('#mob a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+  /* ---------- header e botão flutuante ---------- */
+  const hdr=$('#hdr'), wa=$('#waFloat'); let lastY=0;
+  const onScroll=y=>{
+    const past=y>innerHeight*.75;
+    hdr.classList.toggle('solid',past);
+    hdr.classList.toggle('hide',y>lastY&&y>200&&!document.body.classList.contains('menu-open'));
+    wa.classList.toggle('show',past);lastY=y;
+  };
+
+  const pre=$('#pre');
+  if(!hasGsap||reduce){pre.remove();addEventListener('scroll',()=>onScroll(scrollY),{passive:true});$$('.num').forEach(n=>n.textContent=n.dataset.to+'x');return}
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- Lenis ---------- */
+  let lenis=null;
+  if(window.Lenis){
+    lenis=new Lenis({lerp:.085});window.__lenis=lenis;
+    lenis.on('scroll',ScrollTrigger.update);lenis.on('scroll',({scroll})=>onScroll(scroll));
+    gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length<2)return;const el=document.querySelector(id);if(!el)return;e.preventDefault();setTimeout(()=>lenis.scrollTo(el,{duration:1.5}),document.body.classList.contains('menu-open')?350:0)}));
+  } else addEventListener('scroll',()=>onScroll(scrollY),{passive:true});
+
+  /* ---------- título em letras ---------- */
+  let chars=[];
+  $$('.hero .split').forEach(el=>{if(window.SplitType){const s=new SplitType(el,{types:'words, chars',tagName:'span'});chars.push(...s.chars)}else chars.push(el)});
+  $$('.hero .word').forEach(w=>{w.style.display='inline-block';w.style.whiteSpace='nowrap'});
+  /* letras dentro do .gold herdam o degradê */
+  $$('.hero .gold .char').forEach(c=>{c.classList.add('gold')});
+
+  /* ---------- entrada: o sol se fecha e revela a página ---------- */
+  lenis&&lenis.stop();
+  gsap.set(chars,{yPercent:115,display:'inline-block'});
+  gsap.set(['.hero-row p','.ctas > *','.facts','.hdr'],{autoAlpha:0,y:24});
+  gsap.set('#heroMedia img',{scale:1.25});
+  const c={v:0};
+  const ready=Promise.all([document.fonts?document.fonts.ready:0,$('#heroMedia img').decode?$('#heroMedia img').decode().catch(()=>{}):0]);
+  const spin=gsap.fromTo('#preSun',{scale:.9},{scale:1.06,duration:.9,ease:'sine.inOut',yoyo:true,repeat:-1});
+  const count=gsap.to(c,{v:100,duration:1.7,ease:'power2.inOut',onUpdate:()=>$('#count').textContent=Math.round(c.v)});
+  Promise.race([ready,new Promise(r=>setTimeout(r,3500))]).then(()=>count.then(()=>{
+    const tl=gsap.timeline({onComplete:()=>{spin.kill();pre.remove();lenis&&lenis.start();ScrollTrigger.refresh()}});
+    tl.to('.pre .foot',{autoAlpha:0,duration:.4})
+      .to('#preSun',{scale:1.4,duration:.5,ease:'power2.in'},'<')
+      .to(pre,{clipPath:'circle(0% at 50% 50%)',duration:1.2,ease:'expo.inOut'},'-=.1')
+      .to('#heroMedia img',{scale:1,duration:2.2,ease:'expo.out'},'<.2')
+      .to(chars,{yPercent:0,duration:1.1,ease:'expo.out',stagger:.03},'<.4')
+      .to(['.hero-row p','.ctas > *','.facts','.hdr'],{autoAlpha:1,y:0,duration:1,ease:'expo.out',stagger:.08},'<.4');
+  }));
+
+  /* ---------- paralaxe do hero ---------- */
+  gsap.to('#heroMedia img',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero-in',{y:-90,autoAlpha:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* ---------- títulos ---------- */
+  $$('main h2').forEach(h=>{if(h.closest('.hero'))return;gsap.from(h,{yPercent:30,autoAlpha:0,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:h,start:'top 88%'}})});
+  gsap.from('.result',{y:60,autoAlpha:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.sim',start:'top 70%'}});
+  gsap.from('.panel',{y:80,autoAlpha:0,duration:1.4,ease:'expo.out',stagger:.1,scrollTrigger:{trigger:'#panels',start:'top 85%'}});
+  gsap.from('.prod',{y:60,autoAlpha:0,duration:1.2,ease:'expo.out',stagger:.08,scrollTrigger:{trigger:'.products',start:'top 85%'}});
+  gsap.from('.units li',{x:-30,autoAlpha:0,duration:1,ease:'expo.out',stagger:.07,scrollTrigger:{trigger:'#units',start:'top 85%'}});
+
+  /* ---------- números do financiamento contam ---------- */
+  $$('.num').forEach(n=>{const o={v:0},to=+n.dataset.to;n.textContent='0x';
+    gsap.to(o,{v:to,duration:1.8,ease:'power3.out',onUpdate:()=>n.textContent=Math.round(o.v)+'x',scrollTrigger:{trigger:n,start:'top 85%'}})});
+  gsap.from('.fin-card',{y:70,autoAlpha:0,duration:1.3,ease:'expo.out',stagger:.12,scrollTrigger:{trigger:'.fin',start:'top 85%'}});
+
+  /* ---------- processo: o sol percorre o céu (desktop) ---------- */
+  const mm=gsap.matchMedia();
+  mm.add('(min-width: 901px)',()=>{
+    const path=$('#arcFill'), len=path.getTotalLength(), glow=$('#glow'), svg=$('.sky svg'), steps=$$('.step');
+    path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+    const place=p=>{
+      path.style.strokeDashoffset=len*(1-p);
+      const pt=path.getPointAtLength(len*p), b=svg.getBoundingClientRect(), sec=$('.proc').getBoundingClientRect();
+      const x=b.left-sec.left+pt.x/1000*b.width, y=b.top-sec.top+pt.y/400*b.height;
+      gsap.set(glow,{x,y});
+      const i=Math.min(steps.length-1,Math.floor(p*steps.length*.999));
+      steps.forEach((s,k)=>s.classList.toggle('on',k<=i));
+    };
+    place(0);
+    ScrollTrigger.create({trigger:'.proc',start:'top top',end:'+=180%',pin:true,scrub:true,onUpdate:s=>place(s.progress),onRefresh:s=>place(s.progress)});
+  });
+
+  /* ---------- cursor, magnéticos e inclinação ---------- */
+  if(fine){
+    const cur=$('#cursor'),txt=$('#cursorTxt'),pos={x:innerWidth/2,y:innerHeight/2},m={...pos};
+    const xs=gsap.quickSetter(cur,'x','px'),ys=gsap.quickSetter(cur,'y','px');
+    addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY});
+    gsap.ticker.add(()=>{pos.x+=(m.x-pos.x)*.2;pos.y+=(m.y-pos.y)*.2;xs(pos.x);ys(pos.y)});
+    const bindCursor=el=>{el.addEventListener('pointerenter',()=>{txt.textContent=el.dataset.cursor;cur.classList.add('lg')});el.addEventListener('pointerleave',()=>cur.classList.remove('lg'))};
+    $$('[data-cursor]').forEach(bindCursor);
+    $$('.magnetic').forEach(el=>{
+      el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.3,duration:.5,ease:'power3.out'})});
+      el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.9,ease:'elastic.out(1,.4)'}));
+    });
+    $$('.prod').forEach(p=>{
+      p.addEventListener('pointermove',e=>{const r=p.getBoundingClientRect();gsap.to(p,{rotateY:((e.clientX-r.left)/r.width-.5)*8,rotateX:-((e.clientY-r.top)/r.height-.5)*8,transformPerspective:900,duration:.6,ease:'power3.out'})});
+      p.addEventListener('pointerleave',()=>gsap.to(p,{rotateY:0,rotateX:0,duration:.9,ease:'power3.out'}));
+    });
+  }
+  addEventListener('load',()=>ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

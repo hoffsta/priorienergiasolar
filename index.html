@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priori Energia Solar · Energia solar e mobilidade elétrica no PR e MS</title>
+<meta name="description" content="Priori: energia solar residencial, rural e empresarial com financiamento em até 72x, e mobilidade elétrica (bikes, scooters e triciclos) no carnê em até 48x. Unidades em Altônia, Loanda, Palotina, Umuarama e Naviraí.">
+<meta name="theme-color" content="#0a1949">
+<meta property="og:title" content="Priori · A energia que te move">
+<meta property="og:image" content="img/hero-usina.jpg">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Priori Energia Solar","slogan":"A energia que te move","telephone":"+55 44 9879-3606","address":{"@type":"PostalAddress","streetAddress":"Av. 7 de Setembro, 169","addressLocality":"Altônia","addressRegion":"PR","postalCode":"85550-009","addressCountry":"BR"},"areaServed":["Altônia","Loanda","Palotina","Umuarama","Naviraí"]}
+</script>
+<style>
+:root{
+  --navy:#0a1949;
+  --deep:#060f30;
+  --night:#040a22;
+  --sun:#ffc61f;
+  --amber:#f59e0b;
+  --sun-grad:linear-gradient(120deg,#ffd93a 0%,#ffb21f 55%,#f08c12 100%);
+  --paper:#f3f5fa;
+  --ink:#0b1430;
+  --mute:#5d6683;
+  --mute-d:#9aa3c2;
+  --line:rgba(10,25,73,.12);
+  --line-d:rgba(255,255,255,.12);
+  --display:"Sora",system-ui,sans-serif;
+  --sans:"Manrope",system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px,4.5vw,72px);
+  --hdr:84px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--night);overflow-x:clip;overscroll-behavior-x:none}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--sun);outline-offset:4px}
+::selection{background:var(--sun);color:var(--navy)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1}
+.gold{background:var(--sun-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec{padding:clamp(96px,14vh,160px) var(--pad)}
+.dark{background:var(--deep);color:#fff}
+.h2{font-size:clamp(2.6rem,6.2vw,6rem)}
+.lede{font-size:1.1rem;color:var(--mute);max-width:44ch}
+.dark .lede{color:var(--mute-d)}
+
+/* grão */
+body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* logo */
+.logo{display:inline-flex;align-items:baseline;font-family:var(--display);font-weight:700;letter-spacing:-.045em;line-height:1;color:currentColor}
+.logo svg{width:.84em;height:.84em;margin:0 -.01em 0 -.03em;transform:translateY(.12em);flex:none}
+
+/* ============ PRELOADER ============ */
+.pre{position:fixed;inset:0;z-index:1000;background:var(--navy);color:#fff;display:grid;place-items:center;clip-path:circle(150% at 50% 50%)}
+.pre .sunmark{width:min(360px,72vw);aspect-ratio:492/236}
+.pre .sunmark svg{display:block}
+.pre .foot{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(28px,6vh,56px);display:flex;justify-content:space-between;align-items:flex-end;color:var(--mute-d);font-size:.95rem}
+.pre .count{font-family:var(--display);font-weight:700;font-size:clamp(3.4rem,9vw,7rem);line-height:.8;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+
+/* ============ CURSOR ============ */
+.cursor{position:fixed;left:0;top:0;z-index:998;pointer-events:none;display:none}
+@media (hover:hover) and (pointer:fine){
+  .cursor{display:grid;place-items:center;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--sun);mix-blend-mode:normal;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease)}
+  .cursor span{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--navy);opacity:0;transition:opacity .2s;white-space:nowrap}
+  .cursor.lg{width:92px;height:92px;margin:-46px 0 0 -46px}
+  .cursor.lg span{opacity:1}
+}
+
+/* ============ HEADER ============ */
+.hdr{position:fixed;inset:0 0 auto;z-index:600;height:var(--hdr);padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;gap:20px;color:#fff;transition:transform .7s var(--ease),background .4s,color .4s,box-shadow .4s}
+.hdr.solid{background:rgba(243,245,250,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);color:var(--navy);box-shadow:0 1px 0 var(--line)}
+.hdr.hide{transform:translateY(-110%)}
+.logo-svg{display:block;height:38px;width:auto}
+.nav{display:flex;gap:2px}
+.nav a{padding:10px 16px;border-radius:99px;font-weight:500;font-size:.96rem;opacity:.85;transition:opacity .3s,background .3s}
+.nav a:hover{opacity:1;background:rgba(255,255,255,.12)}
+.hdr.solid .nav a:hover{background:rgba(10,25,73,.07)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:99px;background:var(--sun);color:var(--navy);font-family:var(--display);font-weight:600;font-size:.95rem;will-change:transform;transition:background .3s}
+.pill:hover{background:#ffd54d}
+.pill svg,.btn svg{width:19px;height:19px;flex:none}
+.menu-btn{display:none;align-items:center;gap:10px;padding:12px 18px;border-radius:99px;border:1px solid currentColor;font-weight:600}
+.menu-btn i{position:relative;width:16px;height:8px}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .5s var(--ease),top .5s var(--ease)}
+.menu-btn i::before{top:0}.menu-btn i::after{top:6.5px}
+.menu-open .menu-btn i::before{top:3.25px;transform:rotate(45deg)}
+.menu-open .menu-btn i::after{top:3.25px;transform:rotate(-45deg)}
+.menu-open .hdr{color:#fff;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.mob{position:fixed;inset:0;z-index:550;background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:calc(var(--hdr) + 20px) var(--pad) 40px;clip-path:circle(0% at 100% 0%);visibility:hidden;transition:clip-path .9s var(--ease),visibility 0s .9s}
+.menu-open .mob{clip-path:circle(150% at 100% 0%);visibility:visible;transition:clip-path .9s var(--ease)}
+.mob a{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;line-height:1.15}
+.mob small{margin-top:26px;color:var(--mute-d)}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;color:#fff;isolation:isolate;background:var(--night)}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img{width:100%;height:115%;object-fit:cover;object-position:50% 30%;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(4,10,34,.55) 0%,rgba(4,10,34,.1) 30%,rgba(4,10,34,.35) 55%,rgba(4,10,34,.94) 100%),
+  linear-gradient(90deg,rgba(4,10,34,.6) 0%,rgba(4,10,34,0) 60%)}
+.hero-in{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(120px,20vh,190px)}
+.hero h1{font-size:clamp(3.2rem,9.6vw,10.4rem);line-height:.9;letter-spacing:-.05em;max-width:11ch}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero .word{display:inline-block;white-space:nowrap}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-top:clamp(20px,3.5vh,36px)}
+.hero-row p{max-width:44ch;font-size:1.1rem;color:rgba(255,255,255,.86)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:17px 28px;border-radius:99px;font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em;will-change:transform;transition:background .3s,color .3s,border-color .3s}
+.btn-sun{background:var(--sun);color:var(--navy)}
+.btn-sun:hover{background:#ffd54d}
+.btn-glass{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff}
+.btn-glass:hover{border-color:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:#13277a}
+.facts{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(24px,4vh,40px);display:grid;grid-template-columns:repeat(3,1fr);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.facts div{padding:18px 24px;display:flex;align-items:center;gap:14px;font-size:.95rem;color:rgba(255,255,255,.82)}
+.facts div+div{border-left:1px solid rgba(255,255,255,.14)}
+.facts b{font-family:var(--display);font-size:1.5rem;letter-spacing:-.03em;color:var(--sun);white-space:nowrap}
+
+/* ============ SIMULADOR ============ */
+.sim{background:var(--deep);color:#fff;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,6vw,110px);align-items:center;position:relative;overflow:hidden}
+.sim::before{content:"";position:absolute;width:70vw;height:70vw;right:-25vw;top:-30vw;border-radius:50%;background:radial-gradient(circle,rgba(255,198,31,.16),transparent 60%);pointer-events:none}
+.sim h2{font-size:clamp(2.6rem,5.4vw,5.2rem);margin-bottom:22px}
+.bill{margin-top:clamp(30px,5vh,50px)}
+.bill label{display:block;color:var(--mute-d);margin-bottom:6px}
+.bill output{display:block;font-family:var(--display);font-weight:700;font-size:clamp(3rem,6vw,5.4rem);letter-spacing:-.05em;line-height:1;margin-bottom:22px;font-variant-numeric:tabular-nums}
+.range{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--sun) 0 var(--p,20%),rgba(255,255,255,.14) var(--p,20%) 100%);outline:none}
+.range::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:6px solid var(--sun);box-shadow:0 6px 20px rgba(255,198,31,.5);cursor:grab}
+.range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:6px solid var(--sun);cursor:grab}
+.range:focus-visible::-webkit-slider-thumb{outline:3px solid #fff;outline-offset:3px}
+.ticks{display:flex;justify-content:space-between;color:var(--mute-d);font-size:.85rem;margin-top:10px}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.quick button{padding:9px 16px;border-radius:99px;border:1px solid var(--line-d);color:rgba(255,255,255,.8);font-size:.92rem;transition:border-color .3s,background .3s,color .3s}
+.quick button:hover,.quick button.on{border-color:var(--sun);color:#fff;background:rgba(255,198,31,.1)}
+.result{position:relative;border-radius:28px;padding:clamp(26px,3.4vw,46px);background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.gauge{width:100%;max-width:440px;display:block;margin:0 auto 8px;overflow:visible}
+.save-label{text-align:center;color:var(--mute-d);margin-top:-70px}
+.save{text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,5vw,4.6rem);letter-spacing:-.05em;line-height:1.05;font-variant-numeric:tabular-nums}
+.save small{display:block;font-family:var(--sans);font-weight:500;font-size:1rem;letter-spacing:0;color:var(--mute-d);margin-top:4px}
+.pay{text-align:center;margin-top:14px;font-size:1.02rem;color:#fff}
+.pay b{font-family:var(--display);font-weight:600;color:var(--sun);font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border-radius:18px;overflow:hidden;margin:30px 0 26px}
+.stats div{background:var(--deep);padding:16px 18px}
+.stats span{display:block;color:var(--mute-d);font-size:.88rem}
+.stats b{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.result .btn{width:100%;justify-content:center}
+.disc{font-size:.82rem;color:var(--mute-d);margin-top:16px;line-height:1.55}
+.disc summary{cursor:pointer;font-weight:600;color:#fff;list-style:none;display:inline-flex;gap:8px;align-items:center}
+.disc summary::-webkit-details-marker{display:none}
+.disc summary::after{content:"+";color:var(--sun);font-size:1.1rem}
+.disc[open] summary::after{content:"−"}
+.disc p{margin-top:10px}
+.phase{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:22px;font-size:.92rem;color:var(--mute-d)}
+.phase>span{margin-right:6px}
+.phase label{position:relative;cursor:pointer}
+.phase input{position:absolute;opacity:0;pointer-events:none}
+.phase label{padding:8px 14px;border-radius:99px;border:1px solid var(--line-d);color:rgba(255,255,255,.8);transition:all .3s}
+.phase label:has(input:checked){background:#fff;color:var(--navy);border-color:#fff;font-weight:600}
+.phase label:has(input:focus-visible){outline:2px solid var(--sun);outline-offset:2px}
+
+/* ============ SOLAR: painéis expansíveis ============ */
+.solar-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,6vh,70px)}
+.panels{display:flex;gap:14px;height:min(76vh,700px)}
+.panel{position:relative;flex:1;min-width:0;border-radius:26px;overflow:hidden;isolation:isolate;cursor:pointer;transition:flex 1s var(--ease);color:#fff}
+.panel.on{flex:3.2}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.panel.on img{transform:scale(1)}
+.panel::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,10,34,.15) 30%,rgba(4,10,34,.9) 100%);transition:background .6s}
+.panel:not(.on)::after{background:linear-gradient(180deg,rgba(4,10,34,.35),rgba(4,10,34,.85))}
+.panel .tab{position:absolute;left:26px;top:26px;font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:-.03em;writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity .4s}
+.panel.on .tab{opacity:0}
+.panel .body{position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3vw,44px);opacity:0;transform:translateY(24px);transition:opacity .5s,transform .8s var(--ease)}
+.panel.on .body{opacity:1;transform:none;transition-delay:.25s}
+.panel h3{font-size:clamp(2.4rem,4.4vw,4.2rem);margin-bottom:12px}
+.panel p{max-width:46ch;color:rgba(255,255,255,.86);font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips span{padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:.9rem}
+.chips span.hl{background:var(--sun);color:var(--navy);border-color:var(--sun);font-weight:600}
+
+/* ============ PROCESSO (fixado) ============ */
+.proc{position:relative;background:var(--navy);color:#fff;height:100svh;min-height:640px;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;gap:20px;padding:calc(var(--hdr) + 20px) var(--pad) clamp(30px,6vh,60px)}
+.proc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;position:relative;z-index:2}
+.proc-head h2{font-size:clamp(2.4rem,5vw,4.8rem)}
+.sky{position:relative;min-height:0;margin:0 calc(var(--pad) * -.4);pointer-events:none}
+.sky svg{width:100%;height:100%;overflow:visible}
+.glow{position:absolute;width:44vmin;height:44vmin;margin:-22vmin 0 0 -22vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,198,31,.42),transparent 62%);pointer-events:none;left:0;top:0;will-change:transform;display:grid;place-items:center}
+.glow::after{content:"";width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3b0,#ffc61f 45%,#f59e0b);box-shadow:0 0 30px 8px rgba(255,198,31,.55)}
+.steps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{padding-top:18px;border-top:2px solid rgba(255,255,255,.16);opacity:.38;transition:opacity .5s,border-color .5s}
+.step.on{opacity:1;border-color:var(--sun)}
+.step b{display:block;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--sun);margin-bottom:10px}
+.step h3{font-size:clamp(1.4rem,2vw,1.9rem);letter-spacing:-.03em;margin-bottom:8px}
+.step p{color:rgba(255,255,255,.75);font-size:.98rem;max-width:30ch}
+
+/* ============ FINANCIAMENTO ============ */
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px)}
+.fin-card{position:relative;border-radius:30px;padding:clamp(30px,4vw,56px);overflow:hidden;min-height:440px;display:flex;flex-direction:column;justify-content:space-between}
+.fin-card.a{background:var(--navy);color:#fff}
+.fin-card.b{background:#fff;border:1px solid var(--line)}
+.fin-card .num{font-family:var(--display);font-weight:700;font-size:clamp(7rem,17vw,16rem);line-height:.8;letter-spacing:-.07em;font-variant-numeric:tabular-nums}
+.fin-card.b .num{color:var(--navy)}
+.fin-card h3{font-size:clamp(1.6rem,2.4vw,2.2rem);letter-spacing:-.03em;margin-bottom:10px}
+.fin-card p{max-width:40ch;opacity:.8}
+.fin-card .tag{display:inline-flex;align-self:flex-start;padding:8px 14px;border-radius:99px;font-size:.88rem;font-weight:600;background:rgba(255,198,31,.15);color:var(--sun)}
+.fin-card.b .tag{background:rgba(10,25,73,.07);color:var(--navy)}
+.fin-head{margin-bottom:clamp(40px,6vh,64px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+
+/* ============ MOBILIDADE ============ */
+.mob-sec{background:#fff}
+.mob-head{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:end;margin-bottom:clamp(40px,6vh,70px)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.prod{position:relative;border-radius:24px;overflow:hidden;background:var(--paper);display:flex;flex-direction:column;transform-style:preserve-3d;will-change:transform}
+.prod .ph{position:relative;aspect-ratio:1;overflow:hidden}
+.prod .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 70%;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.05)}
+.prod .badge{position:absolute;left:14px;top:14px;padding:7px 12px;border-radius:99px;background:var(--sun);color:var(--navy);font-weight:700;font-size:.8rem}
+.prod .info{padding:22px 22px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.prod small{color:var(--mute);font-size:.88rem}
+.prod h3{font-size:1.5rem;letter-spacing:-.03em}
+.prod p{color:var(--mute);font-size:.96rem;flex:1}
+.prod button{margin-top:12px;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--navy);border-bottom:2px solid var(--sun);padding-bottom:3px}
+.mob-band{margin-top:22px;border-radius:24px;background:var(--navy);color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.mob-band b{font-family:var(--display);font-size:1.3rem;letter-spacing:-.02em}
+.mob-band b em{font-style:normal;color:var(--sun)}
+
+/* ============ UNIDADES ============ */
+.units-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,6vw,100px);align-items:start}
+.units{list-style:none;border-top:1px solid var(--line)}
+.units a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);position:relative}
+.units a::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--sun);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.units a:hover::before,.units a:focus-visible::before{transform:scaleX(1)}
+.units h3{font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.045em;transition:transform .6s var(--ease)}
+.units a:hover h3{transform:translateX(10px)}
+.units small{display:block;color:var(--mute);font-size:.92rem;margin-top:6px}
+.units .go{width:54px;height:54px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;transition:background .3s,color .3s}
+.units a:hover .go{background:var(--sun);color:var(--navy)}
+.units .go svg{width:22px;height:22px}
+.support{display:grid;gap:10px;margin-top:30px}
+.support a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 20px;border-radius:16px;background:#fff;border:1px solid var(--line);transition:border-color .3s,transform .5s var(--ease)}
+.support a:hover{border-color:var(--sun);transform:translateX(4px)}
+.support b{font-family:var(--display);font-weight:600;letter-spacing:-.02em}
+.support span{color:var(--mute);font-size:.9rem}
+form{display:grid;gap:20px;padding:clamp(24px,3vw,40px);border-radius:26px;background:var(--navy);color:#fff;position:sticky;top:calc(var(--hdr) + 20px)}
+form h3{font-size:1.9rem;letter-spacing:-.035em}
+.field{display:grid;gap:6px;font-size:.9rem;color:var(--mute-d)}
+.field input,.field select,.field textarea{font-size:1.05rem;color:#fff;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.22);border-radius:0;padding:10px 0;outline:none;transition:border-color .3s}
+.field select option{color:#000}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sun)}
+.field textarea{min-height:80px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+form .btn{justify-content:center}
+.note{font-size:.85rem;color:var(--mute-d)}
+
+/* ============ FOOTER ============ */
+footer{background:var(--night);color:#fff;padding:clamp(60px,10vh,110px) var(--pad) 26px;overflow:hidden}
+.ft{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;color:var(--mute-d);font-size:.96rem}
+.ft b{display:block;color:#fff;font-family:var(--display);font-weight:600;margin-bottom:10px}
+.ft a:hover{color:#fff}
+.ft nav{display:grid;gap:6px}
+.wordmark{margin:clamp(50px,9vh,90px) 0 22px;white-space:nowrap;line-height:.85}
+.wordmark svg{display:block;width:100%;height:auto;color:#fff}
+.fb{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line-d);padding:20px 90px 0 0;font-size:.86rem;color:var(--mute-d)}
+
+.wa{position:fixed;right:20px;bottom:20px;z-index:500;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 16px 34px -12px rgba(37,211,102,.65);opacity:0;pointer-events:none;transform:scale(.6);transition:opacity .4s,transform .5s var(--ease)}
+.wa.show{opacity:1;pointer-events:auto;transform:none}
+.wa svg{width:30px;height:30px;color:#fff}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width:1080px){
+  .products{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:26px}
+}
+@media (max-width:900px){
+  .nav,.hdr .pill{display:none}
+  .menu-btn{display:inline-flex}
+  .sim,.units-wrap,.mob-head{grid-template-columns:1fr}
+  .panels{flex-direction:column;height:auto}
+  .panel,.panel.on{flex:none;height:72svh;min-height:480px}
+  .panel .tab{display:none}
+  .panel .body{opacity:1;transform:none}
+  .panel::after,.panel:not(.on)::after{background:linear-gradient(180deg,rgba(4,10,34,0) 20%,rgba(4,10,34,.75) 50%,rgba(4,10,34,.95) 100%)}
+  .panel img{transform:none}
+  .proc{height:auto;min-height:0;display:block}
+  .sky,.glow{display:none}
+  .steps{grid-template-columns:1fr;margin-top:40px}
+  .step{opacity:1;border-color:var(--sun)}
+  .fin{grid-template-columns:1fr}
+  .fin-card{min-height:340px}
+  form{position:static}
+  .ft{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  :root{--hdr:72px}
+  body{font-size:16px}
+  .logo-svg{height:32px}
+  .hero-in{bottom:196px}
+  .hero-row p{font-size:.98rem}
+  .ctas .btn-glass{display:none}
+  .hero-row{margin-top:18px}
+  .hero h1{font-size:clamp(3rem,15.5vw,4.6rem)}
+  .hero-row p{font-size:1rem}
+  .ctas .btn{flex:1 1 100%;justify-content:center}
+  .facts{grid-template-columns:1fr;border-radius:16px}
+  .facts div{padding:9px 16px;font-size:.88rem}
+  .facts div+div{border-left:0;border-top:1px solid rgba(255,255,255,.14)}
+  .facts b{font-size:1.15rem}
+  .hero-row{gap:20px}
+  .products{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .stats b{font-size:1.2rem}
+  .save-label{margin-top:-46px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd92e"/><stop offset="1" stop-color="#f7a21f"/></linearGradient>
+    <linearGradient id="sg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc21f"/><stop offset="1" stop-color="#f08d14"/></linearGradient>
+    <linearGradient id="pg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffdc1e"/><stop offset=".6" stop-color="#fdc20d"/><stop offset="1" stop-color="#f6a908"/></linearGradient><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9b20a" stop-opacity=".15"/><stop offset=".55" stop-color="#f3a20b" stop-opacity=".55"/><stop offset="1" stop-color="#ec8f0c" stop-opacity=".9"/></linearGradient><clipPath id="pclip"><path clip-rule="evenodd" d="M321.88 234.75C321.32 234.63 319.52 234.34 317.88 234.11C316.23 233.88 314.20 233.52 313.38 233.31C312.55 233.11 311.33 232.85 310.66 232.73C310.00 232.62 309.32 232.42 309.16 232.29C309.01 232.16 308.48 231.98 308.00 231.88C306.81 231.65 301.23 229.86 299.30 229.10C296.24 227.89 289.08 224.24 285.75 222.20C279.24 218.20 273.31 213.38 268.04 207.81C264.24 203.79 262.14 201.16 258.96 196.45C257.17 193.80 256.57 193.09 256.32 193.29C256.06 193.51 256.00 185.08 256.01 147.52C256.01 122.19 255.95 101.38 255.88 101.26C255.81 101.14 255.96 101.10 256.22 101.17C256.58 101.27 257.08 100.68 258.62 98.33C262.59 92.28 269.43 84.53 274.50 80.35C275.39 79.62 276.74 78.50 277.50 77.87C278.26 77.23 279.49 76.32 280.25 75.82C281.01 75.33 282.07 74.57 282.62 74.13C284.16 72.90 292.10 68.43 294.62 67.37C295.86 66.85 297.89 65.99 299.12 65.45C302.77 63.87 307.85 62.32 313.38 61.10C314.20 60.92 315.38 60.66 316.00 60.52C319.08 59.82 323.08 59.45 328.62 59.33C336.52 59.16 345.50 59.76 348.25 60.65C348.87 60.84 350.17 61.08 351.13 61.16C352.09 61.25 353.09 61.43 353.36 61.57C353.62 61.70 354.41 61.96 355.11 62.14C358.71 63.06 360.45 63.56 361.16 63.89C361.60 64.09 362.17 64.25 362.44 64.25C362.72 64.25 363.08 64.42 363.25 64.62C363.42 64.83 363.72 65.00 363.91 65.00C364.10 65.00 365.30 65.49 366.57 66.09C367.84 66.69 369.75 67.55 370.81 67.99C371.88 68.43 373.16 69.08 373.67 69.42C374.18 69.77 374.82 70.14 375.11 70.26C377.23 71.14 384.85 76.43 387.86 79.11C391.84 82.66 392.67 83.51 393.88 85.30C394.56 86.30 395.41 87.52 395.78 88.00C396.15 88.48 397.36 90.65 398.48 92.82C400.54 96.85 402.01 100.96 402.87 105.12C403.09 106.20 403.33 107.18 403.40 107.29C403.47 107.41 403.69 109.00 403.89 110.82C404.50 116.58 404.30 123.07 403.36 127.38C401.46 136.14 400.61 138.57 397.19 145.12C394.82 149.66 389.60 156.68 385.88 160.35C379.05 167.07 368.35 173.25 358.99 175.86C358.36 176.03 357.61 176.31 357.32 176.46C356.69 176.80 356.25 176.82 355.80 176.53C355.43 176.30 355.60 175.61 357.05 171.50C357.46 170.33 357.94 168.75 358.11 167.98C358.28 167.21 358.51 166.44 358.61 166.28C358.71 166.11 358.89 165.39 359.00 164.67C359.12 163.96 359.46 161.86 359.76 160.00C360.51 155.43 360.58 146.08 359.90 142.62C358.95 137.85 358.26 135.74 356.38 131.94C351.92 122.90 344.76 116.27 333.20 110.47C331.60 109.66 330.17 109.00 330.02 109.00C329.73 109.00 326.66 107.84 325.90 107.45C325.34 107.15 323.12 106.37 321.38 105.85C320.69 105.64 319.56 105.30 318.88 105.10C318.19 104.89 316.85 104.53 315.90 104.31L314.17 103.90L313.35 104.84C311.88 106.55 309.23 114.21 307.76 121.05C307.17 123.79 306.85 126.49 306.48 131.80C306.09 137.45 306.33 154.82 306.84 158.75C307.28 162.06 308.13 166.31 308.50 167.00C308.64 167.25 308.75 167.76 308.75 168.11C308.75 168.46 308.97 169.40 309.23 170.19C309.49 170.98 309.78 172.05 309.87 172.57C310.30 175.16 311.59 176.78 313.85 177.57C317.55 178.87 320.89 179.79 323.50 180.24C324.39 180.39 325.86 180.68 326.75 180.87C332.39 182.08 332.67 182.11 341.07 182.20C348.55 182.27 349.51 182.24 351.91 181.77C353.36 181.48 354.79 181.25 355.09 181.25C355.38 181.25 356.36 181.09 357.25 180.89C362.82 179.64 365.72 178.92 366.38 178.63C366.79 178.45 367.80 178.05 368.62 177.74C375.31 175.24 380.87 172.19 386.56 167.90C394.11 162.21 399.55 155.62 403.92 146.90C404.96 144.82 405.94 142.74 406.11 142.28C406.76 140.43 407.00 148.45 407.00 172.34C407.00 191.76 406.95 195.27 406.66 195.03C406.25 194.68 405.17 195.79 403.49 198.27C400.97 202.01 398.58 204.86 394.84 208.62C388.09 215.40 386.12 217.09 381.12 220.38C375.54 224.06 373.59 225.26 372.75 225.54C372.27 225.70 371.26 226.13 370.50 226.51C369.74 226.88 368.34 227.55 367.38 227.99C366.41 228.43 365.29 228.95 364.88 229.14C364.19 229.46 361.91 230.26 358.62 231.34C357.94 231.57 357.13 231.75 356.84 231.75C356.55 231.75 355.81 231.97 355.21 232.24C354.62 232.52 353.74 232.74 353.27 232.74C352.79 232.75 351.61 232.97 350.64 233.24C349.67 233.50 347.30 233.97 345.38 234.27C342.32 234.75 340.67 234.83 332.38 234.89C327.15 234.93 322.43 234.87 321.88 234.75Z"/></clipPath>
+    <mask id="sunhole"><rect width="100" height="100" fill="#fff"/><path d="M71 22C50 22 33 41 30 74c21 0 38-19 41-52z" fill="#000"/></mask>
+  </defs>
+  <symbol id="logoWord" viewBox="24 52 492 186"><path fill="currentColor" fill-rule="evenodd" d="M154.38 204.76C153.41 204.67 152.38 204.46 152.07 204.29C151.14 203.79 150.26 202.40 150.00 201.01C149.66 199.23 149.66 103.45 150.00 101.40C150.27 99.70 151.03 98.71 152.62 97.97C153.55 97.54 154.45 97.51 165.25 97.52C171.64 97.52 177.37 97.62 177.96 97.73C179.36 98.00 180.25 98.66 180.88 99.89C181.32 100.77 181.38 101.46 181.45 106.37C181.50 109.60 181.63 111.98 181.78 112.16C182.16 112.62 182.66 112.32 183.03 111.42C183.21 110.98 183.98 109.56 184.74 108.26C186.87 104.62 190.91 100.80 194.88 98.66C197.26 97.38 202.58 95.96 205.16 95.92C207.38 95.88 208.06 96.29 209.06 98.25L209.75 99.59L209.75 113.62L209.75 127.64L209.19 128.76C208.40 130.31 207.28 131.00 205.53 131.01C201.88 131.02 197.76 131.64 195.29 132.53C194.10 132.96 193.50 133.25 191.23 134.53C189.51 135.50 187.70 137.13 185.92 139.30C185.00 140.43 182.76 145.00 182.75 145.78C182.75 146.01 182.59 146.57 182.40 147.03C181.66 148.80 181.50 154.16 181.50 177.40C181.50 193.97 181.42 200.85 181.21 201.67C180.88 202.97 179.67 204.34 178.59 204.61C177.67 204.85 156.68 204.97 154.38 204.76ZM228.29 204.74C226.29 204.47 225.21 203.69 224.58 202.07C224.14 200.92 224.12 198.83 224.12 151.38C224.12 124.15 224.21 101.46 224.32 100.94C224.58 99.74 225.60 98.55 226.86 97.97C227.80 97.54 228.76 97.51 239.88 97.52C252.49 97.52 253.07 97.57 254.30 98.66C255.55 99.78 255.49 97.24 255.54 151.33C255.58 200.85 255.57 201.96 255.10 202.78C254.81 203.29 254.16 203.85 253.47 204.19C252.34 204.76 252.20 204.77 241.10 204.86C234.93 204.91 229.16 204.85 228.29 204.74ZM411.97 204.77C409.65 204.57 408.74 204.13 407.85 202.82C407.39 202.15 407.37 201.10 407.36 173.50C407.34 150.40 407.28 144.63 407.01 143.59C406.73 142.55 406.73 141.76 406.96 139.45C407.15 137.58 407.25 130.47 407.25 118.79C407.25 104.32 407.31 100.83 407.59 100.17C408.04 99.10 409.27 98.08 410.52 97.74C411.20 97.56 415.51 97.50 423.58 97.55C437.18 97.63 436.81 97.58 438.18 99.61L438.87 100.62L439.00 106.73C439.09 111.34 439.20 112.86 439.44 112.94C439.64 113.01 440.25 111.99 441.10 110.21C442.06 108.17 442.90 106.84 444.10 105.44C446.59 102.54 447.25 101.95 449.99 100.12C452.86 98.21 456.80 96.71 460.50 96.10C463.78 95.56 465.35 96.03 466.31 97.82L466.88 98.88L466.88 113.62C466.88 127.35 466.84 128.43 466.43 129.20C465.65 130.62 464.87 130.90 461.28 131.09C455.91 131.36 452.98 132.11 449.29 134.15C446.87 135.50 445.54 136.62 443.78 138.78C442.04 140.94 441.06 142.80 440.32 145.38C439.15 149.41 439.16 149.32 439.01 176.27L438.88 201.91L438.17 202.83C436.74 204.72 436.90 204.69 424.86 204.84C418.96 204.91 413.16 204.88 411.97 204.77ZM486.25 204.74C483.66 204.55 482.58 203.84 481.80 201.84L481.23 200.38L481.30 150.75L481.38 101.12L481.93 100.09C482.24 99.51 482.78 98.82 483.13 98.54C484.39 97.55 485.79 97.46 498.12 97.54C508.85 97.62 509.95 97.66 510.78 98.08C512.21 98.79 512.74 99.52 513.01 101.15C513.29 102.90 513.31 199.18 513.03 201.19C512.81 202.71 511.72 204.06 510.33 204.51C509.44 204.81 489.68 204.99 486.25 204.74ZM28.21 204.25C27.70 203.98 27.03 203.39 26.71 202.94L26.12 202.12L26.12 129.62L26.12 57.12L26.73 56.28C27.06 55.82 27.79 55.23 28.35 54.98C29.33 54.53 30.63 54.51 58.50 54.51C76.63 54.51 88.24 54.60 89.25 54.76C90.14 54.90 91.44 55.07 92.12 55.14C95.73 55.52 104.30 58.48 108.22 60.69C111.80 62.72 114.58 64.49 115.50 65.36C115.98 65.80 116.99 66.67 117.75 67.28C122.21 70.88 126.82 76.88 129.98 83.20C131.78 86.81 132.21 87.93 133.20 91.62C134.37 95.99 134.49 96.60 134.88 100.08C135.71 107.57 134.90 115.31 132.48 122.75C131.71 125.12 128.72 131.38 127.35 133.50C121.37 142.73 112.19 150.17 102.38 153.76C101.69 154.01 100.34 154.50 99.38 154.85C93.62 156.94 90.22 157.29 73.94 157.44C63.27 157.53 60.46 157.63 60.24 157.89C60.05 158.12 59.97 164.09 59.99 178.17C60.00 190.06 59.91 198.91 59.76 200.06C59.47 202.34 59.05 203.25 57.94 204.04L57.12 204.62L43.12 204.68C29.65 204.73 29.09 204.72 28.21 204.25ZM85.42 125.24C88.72 124.79 92.24 123.24 94.63 121.16C96.30 119.71 98.48 116.85 99.23 115.12C100.77 111.59 101.47 107.19 101.05 103.66C100.44 98.52 99.01 95.34 95.78 91.95C92.83 88.85 89.93 87.29 86.04 86.71C85.12 86.57 79.05 86.46 72.52 86.47C62.02 86.47 60.63 86.52 60.27 86.87C59.92 87.23 59.87 89.23 59.80 105.56C59.76 115.63 59.79 124.12 59.87 124.44C59.95 124.76 60.26 125.12 60.57 125.24C61.36 125.56 83.04 125.56 85.42 125.24ZM226.49 83.44C225.64 83.01 225.23 82.58 224.75 81.62L224.12 80.38L224.12 69.12L224.12 57.88L224.75 56.75C225.19 55.96 225.71 55.46 226.49 55.06C227.60 54.50 227.64 54.50 240.00 54.50C252.36 54.50 252.40 54.50 253.50 55.06C254.28 55.46 254.77 55.94 255.18 56.73L255.75 57.83L255.74 69.23C255.72 80.44 255.71 80.64 255.17 81.73C254.78 82.53 254.31 83.00 253.52 83.42L252.42 84.00L240.01 84.00C227.64 84.00 227.60 84.00 226.49 83.44ZM484.64 83.82C483.29 83.47 482.32 82.53 481.77 81.06C481.22 79.59 481.22 79.42 481.30 68.72C481.37 58.68 481.41 57.81 481.84 57.01C482.10 56.54 482.55 55.95 482.84 55.69C484.20 54.50 484.24 54.50 497.38 54.50C511.03 54.50 510.76 54.47 512.17 56.07C512.89 56.89 512.96 57.15 513.12 59.29C513.39 63.03 513.13 80.48 512.79 81.53C512.59 82.14 512.14 82.68 511.43 83.16L510.38 83.88L497.75 83.91C490.81 83.93 484.91 83.89 484.64 83.82Z"/><path fill-rule="evenodd" d="M321.88 234.75C321.32 234.63 319.52 234.34 317.88 234.11C316.23 233.88 314.20 233.52 313.38 233.31C312.55 233.11 311.33 232.85 310.66 232.73C310.00 232.62 309.32 232.42 309.16 232.29C309.01 232.16 308.48 231.98 308.00 231.88C306.81 231.65 301.23 229.86 299.30 229.10C296.24 227.89 289.08 224.24 285.75 222.20C279.24 218.20 273.31 213.38 268.04 207.81C264.24 203.79 262.14 201.16 258.96 196.45C257.17 193.80 256.57 193.09 256.32 193.29C256.06 193.51 256.00 185.08 256.01 147.52C256.01 122.19 255.95 101.38 255.88 101.26C255.81 101.14 255.96 101.10 256.22 101.17C256.58 101.27 257.08 100.68 258.62 98.33C262.59 92.28 269.43 84.53 274.50 80.35C275.39 79.62 276.74 78.50 277.50 77.87C278.26 77.23 279.49 76.32 280.25 75.82C281.01 75.33 282.07 74.57 282.62 74.13C284.16 72.90 292.10 68.43 294.62 67.37C295.86 66.85 297.89 65.99 299.12 65.45C302.77 63.87 307.85 62.32 313.38 61.10C314.20 60.92 315.38 60.66 316.00 60.52C319.08 59.82 323.08 59.45 328.62 59.33C336.52 59.16 345.50 59.76 348.25 60.65C348.87 60.84 350.17 61.08 351.13 61.16C352.09 61.25 353.09 61.43 353.36 61.57C353.62 61.70 354.41 61.96 355.11 62.14C358.71 63.06 360.45 63.56 361.16 63.89C361.60 64.09 362.17 64.25 362.44 64.25C362.72 64.25 363.08 64.42 363.25 64.62C363.42 64.83 363.72 65.00 363.91 65.00C364.10 65.00 365.30 65.49 366.57 66.09C367.84 66.69 369.75 67.55 370.81 67.99C371.88 68.43 373.16 69.08 373.67 69.42C374.18 69.77 374.82 70.14 375.11 70.26C377.23 71.14 384.85 76.43 387.86 79.11C391.84 82.66 392.67 83.51 393.88 85.30C394.56 86.30 395.41 87.52 395.78 88.00C396.15 88.48 397.36 90.65 398.48 92.82C400.54 96.85 402.01 100.96 402.87 105.12C403.09 106.20 403.33 107.18 403.40 107.29C403.47 107.41 403.69 109.00 403.89 110.82C404.50 116.58 404.30 123.07 403.36 127.38C401.46 136.14 400.61 138.57 397.19 145.12C394.82 149.66 389.60 156.68 385.88 160.35C379.05 167.07 368.35 173.25 358.99 175.86C358.36 176.03 357.61 176.31 357.32 176.46C356.69 176.80 356.25 176.82 355.80 176.53C355.43 176.30 355.60 175.61 357.05 171.50C357.46 170.33 357.94 168.75 358.11 167.98C358.28 167.21 358.51 166.44 358.61 166.28C358.71 166.11 358.89 165.39 359.00 164.67C359.12 163.96 359.46 161.86 359.76 160.00C360.51 155.43 360.58 146.08 359.90 142.62C358.95 137.85 358.26 135.74 356.38 131.94C351.92 122.90 344.76 116.27 333.20 110.47C331.60 109.66 330.17 109.00 330.02 109.00C329.73 109.00 326.66 107.84 325.90 107.45C325.34 107.15 323.12 106.37 321.38 105.85C320.69 105.64 319.56 105.30 318.88 105.10C318.19 104.89 316.85 104.53 315.90 104.31L314.17 103.90L313.35 104.84C311.88 106.55 309.23 114.21 307.76 121.05C307.17 123.79 306.85 126.49 306.48 131.80C306.09 137.45 306.33 154.82 306.84 158.75C307.28 162.06 308.13 166.31 308.50 167.00C308.64 167.25 308.75 167.76 308.75 168.11C308.75 168.46 308.97 169.40 309.23 170.19C309.49 170.98 309.78 172.05 309.87 172.57C310.30 175.16 311.59 176.78 313.85 177.57C317.55 178.87 320.89 179.79 323.50 180.24C324.39 180.39 325.86 180.68 326.75 180.87C332.39 182.08 332.67 182.11 341.07 182.20C348.55 182.27 349.51 182.24 351.91 181.77C353.36 181.48 354.79 181.25 355.09 181.25C355.38 181.25 356.36 181.09 357.25 180.89C362.82 179.64 365.72 178.92 366.38 178.63C366.79 178.45 367.80 178.05 368.62 177.74C375.31 175.24 380.87 172.19 386.56 167.90C394.11 162.21 399.55 155.62 403.92 146.90C404.96 144.82 405.94 142.74 406.11 142.28C406.76 140.43 407.00 148.45 407.00 172.34C407.00 191.76 406.95 195.27 406.66 195.03C406.25 194.68 405.17 195.79 403.49 198.27C400.97 202.01 398.58 204.86 394.84 208.62C388.09 215.40 386.12 217.09 381.12 220.38C375.54 224.06 373.59 225.26 372.75 225.54C372.27 225.70 371.26 226.13 370.50 226.51C369.74 226.88 368.34 227.55 367.38 227.99C366.41 228.43 365.29 228.95 364.88 229.14C364.19 229.46 361.91 230.26 358.62 231.34C357.94 231.57 357.13 231.75 356.84 231.75C356.55 231.75 355.81 231.97 355.21 232.24C354.62 232.52 353.74 232.74 353.27 232.74C352.79 232.75 351.61 232.97 350.64 233.24C349.67 233.50 347.30 233.97 345.38 234.27C342.32 234.75 340.67 234.83 332.38 234.89C327.15 234.93 322.43 234.87 321.88 234.75Z" fill="url(#pg1)"/><circle cx="392" cy="150" r="92" fill="url(#pg2)" clip-path="url(#pclip)"/></symbol>
+  <symbol id="logoFull" viewBox="24 52 492 236"><path fill="currentColor" fill-rule="evenodd" d="M154.38 204.76C153.41 204.67 152.38 204.46 152.07 204.29C151.14 203.79 150.26 202.40 150.00 201.01C149.66 199.23 149.66 103.45 150.00 101.40C150.27 99.70 151.03 98.71 152.62 97.97C153.55 97.54 154.45 97.51 165.25 97.52C171.64 97.52 177.37 97.62 177.96 97.73C179.36 98.00 180.25 98.66 180.88 99.89C181.32 100.77 181.38 101.46 181.45 106.37C181.50 109.60 181.63 111.98 181.78 112.16C182.16 112.62 182.66 112.32 183.03 111.42C183.21 110.98 183.98 109.56 184.74 108.26C186.87 104.62 190.91 100.80 194.88 98.66C197.26 97.38 202.58 95.96 205.16 95.92C207.38 95.88 208.06 96.29 209.06 98.25L209.75 99.59L209.75 113.62L209.75 127.64L209.19 128.76C208.40 130.31 207.28 131.00 205.53 131.01C201.88 131.02 197.76 131.64 195.29 132.53C194.10 132.96 193.50 133.25 191.23 134.53C189.51 135.50 187.70 137.13 185.92 139.30C185.00 140.43 182.76 145.00 182.75 145.78C182.75 146.01 182.59 146.57 182.40 147.03C181.66 148.80 181.50 154.16 181.50 177.40C181.50 193.97 181.42 200.85 181.21 201.67C180.88 202.97 179.67 204.34 178.59 204.61C177.67 204.85 156.68 204.97 154.38 204.76ZM228.29 204.74C226.29 204.47 225.21 203.69 224.58 202.07C224.14 200.92 224.12 198.83 224.12 151.38C224.12 124.15 224.21 101.46 224.32 100.94C224.58 99.74 225.60 98.55 226.86 97.97C227.80 97.54 228.76 97.51 239.88 97.52C252.49 97.52 253.07 97.57 254.30 98.66C255.55 99.78 255.49 97.24 255.54 151.33C255.58 200.85 255.57 201.96 255.10 202.78C254.81 203.29 254.16 203.85 253.47 204.19C252.34 204.76 252.20 204.77 241.10 204.86C234.93 204.91 229.16 204.85 228.29 204.74ZM411.97 204.77C409.65 204.57 408.74 204.13 407.85 202.82C407.39 202.15 407.37 201.10 407.36 173.50C407.34 150.40 407.28 144.63 407.01 143.59C406.73 142.55 406.73 141.76 406.96 139.45C407.15 137.58 407.25 130.47 407.25 118.79C407.25 104.32 407.31 100.83 407.59 100.17C408.04 99.10 409.27 98.08 410.52 97.74C411.20 97.56 415.51 97.50 423.58 97.55C437.18 97.63 436.81 97.58 438.18 99.61L438.87 100.62L439.00 106.73C439.09 111.34 439.20 112.86 439.44 112.94C439.64 113.01 440.25 111.99 441.10 110.21C442.06 108.17 442.90 106.84 444.10 105.44C446.59 102.54 447.25 101.95 449.99 100.12C452.86 98.21 456.80 96.71 460.50 96.10C463.78 95.56 465.35 96.03 466.31 97.82L466.88 98.88L466.88 113.62C466.88 127.35 466.84 128.43 466.43 129.20C465.65 130.62 464.87 130.90 461.28 131.09C455.91 131.36 452.98 132.11 449.29 134.15C446.87 135.50 445.54 136.62 443.78 138.78C442.04 140.94 441.06 142.80 440.32 145.38C439.15 149.41 439.16 149.32 439.01 176.27L438.88 201.91L438.17 202.83C436.74 204.72 436.90 204.69 424.86 204.84C418.96 204.91 413.16 204.88 411.97 204.77ZM486.25 204.74C483.66 204.55 482.58 203.84 481.80 201.84L481.23 200.38L481.30 150.75L481.38 101.12L481.93 100.09C482.24 99.51 482.78 98.82 483.13 98.54C484.39 97.55 485.79 97.46 498.12 97.54C508.85 97.62 509.95 97.66 510.78 98.08C512.21 98.79 512.74 99.52 513.01 101.15C513.29 102.90 513.31 199.18 513.03 201.19C512.81 202.71 511.72 204.06 510.33 204.51C509.44 204.81 489.68 204.99 486.25 204.74ZM28.21 204.25C27.70 203.98 27.03 203.39 26.71 202.94L26.12 202.12L26.12 129.62L26.12 57.12L26.73 56.28C27.06 55.82 27.79 55.23 28.35 54.98C29.33 54.53 30.63 54.51 58.50 54.51C76.63 54.51 88.24 54.60 89.25 54.76C90.14 54.90 91.44 55.07 92.12 55.14C95.73 55.52 104.30 58.48 108.22 60.69C111.80 62.72 114.58 64.49 115.50 65.36C115.98 65.80 116.99 66.67 117.75 67.28C122.21 70.88 126.82 76.88 129.98 83.20C131.78 86.81 132.21 87.93 133.20 91.62C134.37 95.99 134.49 96.60 134.88 100.08C135.71 107.57 134.90 115.31 132.48 122.75C131.71 125.12 128.72 131.38 127.35 133.50C121.37 142.73 112.19 150.17 102.38 153.76C101.69 154.01 100.34 154.50 99.38 154.85C93.62 156.94 90.22 157.29 73.94 157.44C63.27 157.53 60.46 157.63 60.24 157.89C60.05 158.12 59.97 164.09 59.99 178.17C60.00 190.06 59.91 198.91 59.76 200.06C59.47 202.34 59.05 203.25 57.94 204.04L57.12 204.62L43.12 204.68C29.65 204.73 29.09 204.72 28.21 204.25ZM85.42 125.24C88.72 124.79 92.24 123.24 94.63 121.16C96.30 119.71 98.48 116.85 99.23 115.12C100.77 111.59 101.47 107.19 101.05 103.66C100.44 98.52 99.01 95.34 95.78 91.95C92.83 88.85 89.93 87.29 86.04 86.71C85.12 86.57 79.05 86.46 72.52 86.47C62.02 86.47 60.63 86.52 60.27 86.87C59.92 87.23 59.87 89.23 59.80 105.56C59.76 115.63 59.79 124.12 59.87 124.44C59.95 124.76 60.26 125.12 60.57 125.24C61.36 125.56 83.04 125.56 85.42 125.24ZM226.49 83.44C225.64 83.01 225.23 82.58 224.75 81.62L224.12 80.38L224.12 69.12L224.12 57.88L224.75 56.75C225.19 55.96 225.71 55.46 226.49 55.06C227.60 54.50 227.64 54.50 240.00 54.50C252.36 54.50 252.40 54.50 253.50 55.06C254.28 55.46 254.77 55.94 255.18 56.73L255.75 57.83L255.74 69.23C255.72 80.44 255.71 80.64 255.17 81.73C254.78 82.53 254.31 83.00 253.52 83.42L252.42 84.00L240.01 84.00C227.64 84.00 227.60 84.00 226.49 83.44ZM484.64 83.82C483.29 83.47 482.32 82.53 481.77 81.06C481.22 79.59 481.22 79.42 481.30 68.72C481.37 58.68 481.41 57.81 481.84 57.01C482.10 56.54 482.55 55.95 482.84 55.69C484.20 54.50 484.24 54.50 497.38 54.50C511.03 54.50 510.76 54.47 512.17 56.07C512.89 56.89 512.96 57.15 513.12 59.29C513.39 63.03 513.13 80.48 512.79 81.53C512.59 82.14 512.14 82.68 511.43 83.16L510.38 83.88L497.75 83.91C490.81 83.93 484.91 83.89 484.64 83.82ZM269.79 283.95C269.29 283.37 268.47 282.45 267.97 281.90L267.07 280.91L263.85 280.86L260.62 280.80L258.38 279.74C255.55 278.40 253.79 276.69 252.38 273.89L251.38 271.92L251.38 268.65C251.39 264.93 251.71 263.83 253.53 261.24C255.07 259.03 256.63 257.92 259.54 256.91C263.54 255.53 268.58 256.40 271.66 259.00C273.25 260.35 274.72 262.47 275.25 264.18C275.99 266.54 275.99 270.75 275.27 272.84C274.74 274.37 273.01 276.98 271.90 277.94C270.76 278.92 271.03 279.52 274.08 282.67C276.09 284.74 275.97 285.00 272.99 285.00L270.71 285.00L269.79 283.95ZM195.50 280.84C192.21 280.20 188.17 277.28 186.77 274.54C185.12 271.31 185.10 266.24 186.73 262.64C187.35 261.26 189.76 258.68 191.14 257.90C195.98 255.20 203.17 255.99 206.40 259.58C207.58 260.89 208.50 262.44 208.50 263.12C208.50 263.43 208.11 263.50 206.22 263.50L203.94 263.50L203.03 262.53C201.52 260.90 200.23 260.38 197.75 260.38C196.00 260.39 195.38 260.50 194.23 261.04C191.53 262.29 189.93 265.14 189.93 268.68C189.93 270.49 190.02 270.93 190.72 272.36C192.08 275.11 194.44 276.70 197.50 276.93C200.45 277.15 203.21 275.50 204.50 272.74C205.39 270.85 205.20 270.75 200.88 270.75C196.74 270.75 196.68 270.72 196.80 268.71L196.88 267.38L203.25 267.38L209.62 267.38L209.70 269.42C209.78 271.82 209.21 273.54 207.52 275.93C206.26 277.73 205.20 278.58 202.67 279.82C200.88 280.70 200.45 280.80 198.40 280.88C197.15 280.93 195.84 280.91 195.50 280.84ZM286.62 280.85C283.41 280.01 281.36 278.43 280.14 275.85L279.24 273.97L279.31 265.30L279.38 256.62L281.21 256.55C282.35 256.51 283.18 256.59 283.40 256.77C283.69 257.01 283.75 258.50 283.75 265.16C283.75 273.84 283.81 274.33 285.03 275.40C286.94 277.07 289.11 277.46 291.07 276.47C292.46 275.77 292.96 275.31 293.53 274.20C293.96 273.35 294.00 272.63 294.00 265.37C294.00 260.40 294.10 257.29 294.26 256.98C294.48 256.58 294.79 256.50 296.21 256.50C297.19 256.50 298.03 256.63 298.20 256.80C298.60 257.20 298.62 271.91 298.22 273.80C297.77 275.91 296.66 277.87 295.44 278.70C293.04 280.35 291.83 280.79 289.40 280.88C288.15 280.93 286.90 280.92 286.62 280.85ZM412.25 280.76C411.03 280.50 408.75 279.44 407.19 278.40C406.00 277.62 404.98 276.45 403.70 274.45C402.36 272.34 401.98 267.53 402.93 264.60C405.01 258.17 411.84 254.80 418.61 256.87C421.29 257.68 422.66 258.60 424.29 260.66C426.52 263.47 426.86 264.51 426.87 268.50C426.87 271.51 426.81 272.02 426.28 273.24C425.56 274.90 424.09 276.94 422.88 277.93C421.71 278.89 418.68 280.40 417.25 280.73C415.98 281.02 413.56 281.03 412.25 280.76ZM72.50 280.48C72.50 280.02 74.26 274.76 75.38 271.88C75.97 270.36 76.88 267.83 77.40 266.25C78.58 262.66 80.43 257.81 80.91 257.06C81.23 256.54 81.45 256.50 83.60 256.50C85.17 256.50 86.02 256.60 86.19 256.81C86.55 257.25 88.06 261.13 89.77 266.00C90.56 268.27 91.39 270.63 91.61 271.25C91.83 271.87 92.11 272.57 92.25 272.80C92.60 273.41 94.75 279.95 94.75 280.40C94.75 280.70 94.37 280.76 92.57 280.70L90.40 280.62L89.76 278.81C88.73 275.87 89.01 276.00 83.63 276.00C78.23 276.00 78.40 275.93 77.49 278.66C77.18 279.60 76.80 280.46 76.65 280.56C76.21 280.86 72.50 280.79 72.50 280.48ZM106.31 268.69L106.38 256.62L112.84 256.56C117.41 256.51 119.41 256.58 119.66 256.78C120.08 257.13 120.12 259.28 119.70 259.70C119.49 259.91 118.17 260.00 115.36 260.00C111.96 260.00 111.26 260.06 110.98 260.40C110.54 260.93 110.56 265.85 111.00 266.38C111.25 266.68 112.03 266.75 114.90 266.75C118.19 266.75 118.50 266.79 118.74 267.23C119.07 267.85 119.07 268.90 118.74 269.52C118.50 269.96 118.19 270.00 114.90 270.00C112.16 270.00 111.24 270.08 111.03 270.34C110.86 270.54 110.71 271.88 110.66 273.49C110.55 277.42 110.31 277.23 115.62 277.31L119.88 277.38L119.88 279.00L119.88 280.62L113.06 280.69L106.25 280.76L106.31 268.69ZM123.31 268.70L123.38 256.62L125.12 256.55C127.44 256.45 127.81 256.57 128.55 257.68C131.23 261.70 132.25 263.24 133.07 264.55C133.58 265.38 134.33 266.47 134.73 266.97C135.12 267.47 136.02 268.84 136.72 270.00C138.62 273.17 138.42 272.95 138.87 272.39C139.19 271.98 139.25 270.78 139.25 264.48C139.25 258.41 139.31 257.01 139.60 256.77C139.82 256.59 140.65 256.51 141.79 256.55L143.62 256.62L143.69 268.69L143.75 280.75L141.53 280.75L139.31 280.75L136.57 276.69C135.06 274.45 133.65 272.29 133.44 271.88C133.22 271.46 132.46 270.34 131.75 269.38C131.04 268.41 130.10 266.98 129.66 266.19C129.17 265.30 128.71 264.75 128.44 264.75C128.20 264.75 127.98 264.78 127.95 264.81C127.92 264.85 127.83 268.42 127.76 272.75L127.62 280.62L125.44 280.70L123.25 280.77L123.31 268.70ZM147.67 280.58C147.57 280.49 147.50 275.17 147.50 268.76C147.50 260.02 147.58 257.02 147.80 256.80C148.23 256.37 160.77 256.37 161.20 256.80C161.59 257.19 161.59 259.31 161.20 259.70C160.99 259.91 159.64 260.00 156.73 260.00C153.15 260.00 152.51 260.06 152.22 260.42C151.78 260.95 151.81 265.84 152.26 266.39C152.50 266.67 153.32 266.75 156.16 266.75L159.76 266.75L160.01 267.39C160.34 268.27 160.31 269.34 159.95 269.70C159.74 269.91 158.53 270.00 156.11 270.00C153.24 270.00 152.50 270.07 152.25 270.38C151.87 270.84 151.67 276.21 152.01 276.76C152.19 277.05 153.16 277.15 156.80 277.25L161.38 277.38L161.52 278.75C161.61 279.51 161.56 280.27 161.43 280.44C161.25 280.67 159.56 280.75 154.51 280.75C150.84 280.75 147.76 280.68 147.67 280.58ZM165.42 280.58C165.32 280.49 165.25 275.17 165.25 268.76C165.25 260.02 165.33 257.02 165.55 256.80C165.76 256.59 167.18 256.50 170.36 256.51C177.43 256.52 179.89 257.16 181.61 259.41C182.74 260.89 183.08 262.17 182.94 264.41C182.80 266.67 181.90 268.26 180.11 269.43C178.02 270.79 177.89 270.92 177.93 271.46C177.95 271.75 178.29 272.47 178.69 273.06C179.09 273.64 179.85 274.91 180.38 275.88C180.91 276.84 181.72 278.21 182.19 278.93C182.66 279.65 182.97 280.35 182.88 280.49C182.64 280.87 178.33 280.82 178.00 280.44C177.76 280.16 175.63 276.50 173.71 273.09C172.83 271.51 172.54 271.27 171.36 271.07C169.85 270.83 169.75 271.15 169.75 276.30L169.75 280.75L167.67 280.75C166.52 280.75 165.51 280.68 165.42 280.58ZM211.93 280.59C211.63 280.30 211.71 257.53 212.01 256.98C212.22 256.58 212.54 256.50 213.85 256.50C214.89 256.50 215.54 256.62 215.72 256.84C215.93 257.09 215.99 260.46 215.94 268.90L215.88 280.62L213.99 280.70C212.95 280.74 212.02 280.69 211.93 280.59ZM219.64 280.53C219.50 280.29 221.89 273.02 223.12 270.00C223.48 269.11 224.38 266.57 225.12 264.38C225.85 262.18 226.64 260.04 226.85 259.62C227.07 259.21 227.25 258.72 227.25 258.53C227.25 258.34 227.48 257.81 227.77 257.34L228.29 256.50L230.47 256.50C231.87 256.50 232.81 256.62 233.10 256.83C233.35 257.00 233.94 258.16 234.42 259.39C235.31 261.69 238.32 270.19 238.79 271.75C238.93 272.23 239.16 272.76 239.30 272.93C239.43 273.09 239.70 273.71 239.89 274.30C240.08 274.89 240.57 276.39 240.99 277.62C242.08 280.85 242.12 280.75 239.81 280.75C238.75 280.74 237.74 280.66 237.58 280.56C237.42 280.45 237.21 280.03 237.10 279.62C236.76 278.26 235.79 276.32 235.37 276.16C234.56 275.85 226.12 275.98 225.68 276.31C225.45 276.48 224.95 277.52 224.57 278.62L223.88 280.62L221.83 280.70C220.71 280.74 219.73 280.66 219.64 280.53ZM302.17 280.58C302.07 280.49 302.00 275.17 302.00 268.76C302.00 260.02 302.08 257.02 302.30 256.80C302.73 256.37 315.02 256.37 315.45 256.80C315.62 256.97 315.75 257.62 315.75 258.25C315.75 258.88 315.62 259.53 315.45 259.70C315.24 259.91 313.91 260.00 311.09 260.00C306.12 260.00 306.25 259.91 306.25 263.43C306.25 266.75 306.26 266.75 310.74 266.75C314.63 266.75 314.75 266.80 314.75 268.56C314.75 269.91 314.51 270.00 310.70 270.00C306.19 270.00 306.25 269.95 306.25 273.72C306.25 275.94 306.33 276.50 306.66 276.78C306.96 277.03 308.25 277.16 311.35 277.25L315.62 277.38L315.77 278.75C315.86 279.51 315.81 280.27 315.68 280.44C315.50 280.67 313.83 280.75 308.89 280.75C305.28 280.75 302.26 280.68 302.17 280.58ZM333.43 280.59C333.33 280.50 333.25 276.00 333.25 270.60C333.25 262.01 333.20 260.74 332.86 260.39C332.55 260.09 331.89 260.00 329.87 260.00C326.98 260.00 326.75 259.87 326.75 258.25C326.75 257.82 326.87 257.25 327.01 256.98C327.26 256.52 327.61 256.50 335.45 256.50C339.94 256.51 343.79 256.61 343.99 256.74C344.47 257.04 344.46 259.46 343.97 259.77C343.78 259.89 342.43 259.99 340.97 260.00C338.81 260.00 338.25 260.08 337.97 260.41C337.69 260.74 337.60 262.84 337.50 270.73L337.38 280.62L335.49 280.70C334.45 280.74 333.52 280.69 333.43 280.59ZM347.42 280.59C347.33 280.49 347.25 275.17 347.25 268.76C347.25 260.02 347.33 257.02 347.55 256.80C347.77 256.58 349.64 256.50 354.42 256.50C360.65 256.50 361.00 256.52 361.24 256.98C361.59 257.64 361.57 259.33 361.20 259.70C360.99 259.91 359.61 260.00 356.58 260.00C351.47 260.00 351.75 259.81 351.75 263.30C351.75 266.78 351.71 266.75 355.98 266.75C359.96 266.75 360.07 266.80 359.95 268.67L359.88 269.88L356.08 270.00C354.00 270.07 352.20 270.22 352.08 270.33C351.78 270.64 351.69 276.31 351.98 276.75C352.18 277.05 353.11 277.15 356.80 277.25L361.38 277.38L361.38 279.00L361.38 280.62L354.48 280.69C350.69 280.73 347.51 280.68 347.42 280.59ZM372.61 280.44C372.54 280.25 372.52 274.90 372.56 268.54C372.62 258.59 372.68 256.95 373.00 256.74C373.21 256.61 374.30 256.51 375.42 256.50C377.45 256.50 377.48 256.51 378.07 257.31C378.39 257.76 379.14 259.36 379.73 260.88C381.19 264.60 382.03 266.55 382.38 267.00C382.53 267.21 383.09 268.50 383.62 269.88C385.16 273.90 385.21 274.00 385.57 274.00C386.11 274.00 386.98 272.93 387.15 272.05C387.24 271.60 387.41 271.18 387.53 271.11C387.78 270.95 388.48 269.41 389.62 266.50C391.00 263.00 393.52 257.41 393.94 256.94C394.44 256.37 398.27 256.29 398.72 256.84C398.93 257.09 398.99 260.46 398.94 268.90L398.88 280.62L396.75 280.62L394.62 280.62L394.50 273.68C394.40 267.87 394.31 266.69 394.00 266.50C393.53 266.20 393.09 266.74 392.73 268.09C392.51 268.89 391.39 271.59 389.50 275.88C389.38 276.15 388.98 277.16 388.62 278.12C387.65 280.73 387.78 280.62 385.91 280.70L384.24 280.77L383.73 279.57C383.45 278.91 383.01 277.93 382.75 277.38C382.49 276.82 381.53 274.50 380.63 272.21C378.39 266.52 377.52 265.02 377.09 266.12C377.02 266.32 376.93 269.67 376.91 273.56L376.88 280.62L374.81 280.70C373.26 280.75 372.71 280.69 372.61 280.44ZM436.55 280.45C436.38 280.28 436.25 279.99 436.25 279.79C436.25 279.59 436.04 278.97 435.77 278.40C435.13 277.01 433.81 273.51 433.11 271.38C432.44 269.29 431.05 265.51 430.13 263.25C428.82 260.01 428.00 257.17 428.29 256.83C428.72 256.30 431.82 256.39 432.32 256.94C432.75 257.42 433.38 259.14 436.13 267.25C438.27 273.56 439.12 275.59 439.56 275.44C439.89 275.33 440.43 273.93 442.45 267.88C444.55 261.59 446.11 257.34 446.48 256.90C446.76 256.56 447.19 256.49 448.73 256.55C450.57 256.62 450.62 256.64 450.60 257.25C450.56 257.91 447.95 265.53 447.48 266.35C447.32 266.61 447.00 267.40 446.76 268.10C444.75 273.88 442.50 279.94 442.17 280.44C441.90 280.86 436.97 280.87 436.55 280.45ZM453.23 280.44C453.13 278.33 453.25 256.96 453.37 256.76C453.47 256.59 455.71 256.50 459.87 256.50C466.99 256.50 467.00 256.50 467.00 258.25C467.00 259.91 466.74 260.00 462.25 260.00C457.39 260.00 457.50 259.92 457.50 263.40C457.50 266.76 457.46 266.73 462.00 266.81L465.62 266.88L465.62 268.38L465.62 269.88L462.00 269.94C457.37 270.02 457.50 269.91 457.50 273.91C457.50 276.74 457.50 276.76 458.14 277.01C458.49 277.14 460.57 277.25 462.76 277.25C466.69 277.25 466.74 277.26 466.84 277.81C467.03 278.95 466.98 280.10 466.71 280.42C466.32 280.89 453.26 280.91 453.23 280.44ZM266.75 276.39C268.98 275.24 270.58 273.31 271.11 271.14C271.20 270.73 271.28 269.40 271.27 268.18C271.26 266.25 271.17 265.76 270.57 264.58C269.70 262.85 267.65 260.88 266.35 260.52C265.81 260.37 264.64 260.25 263.73 260.25C260.36 260.25 258.27 261.45 256.73 264.29C255.91 265.81 255.88 265.99 255.88 268.50C255.88 270.96 255.92 271.22 256.66 272.62C257.64 274.48 258.72 275.52 260.50 276.35C261.68 276.90 262.16 276.98 263.88 276.91C265.18 276.86 266.18 276.68 266.75 276.39ZM417.93 276.26C419.64 275.42 420.90 274.13 421.76 272.36C422.28 271.29 422.36 270.78 422.34 268.50C422.33 266.15 422.26 265.73 421.64 264.50C420.19 261.61 418.48 260.47 415.34 260.30C412.60 260.15 411.08 260.66 409.33 262.32C407.53 264.02 406.92 265.62 406.92 268.62C406.93 270.49 407.04 271.11 407.56 272.25C408.30 273.86 409.87 275.44 411.62 276.34C413.49 277.29 415.92 277.26 417.93 276.26ZM86.52 272.24C86.78 272.10 87.00 271.76 87.00 271.48C87.00 270.89 84.97 264.73 84.34 263.41C83.51 261.67 83.19 262.09 81.53 267.06L80.01 271.62L80.53 272.06C80.95 272.41 81.54 272.50 83.54 272.50C84.91 272.50 86.25 272.38 86.52 272.24ZM233.86 272.11C234.07 271.89 234.25 271.64 234.25 271.54C234.24 271.45 233.69 269.79 233.02 267.85C231.32 262.94 230.81 262.04 230.14 262.78C229.80 263.16 227.25 270.90 227.25 271.56C227.25 272.28 228.04 272.48 230.79 272.49C232.90 272.50 233.55 272.42 233.86 272.11ZM176.42 267.29C177.92 266.52 178.25 265.93 178.25 264.01C178.24 260.96 177.35 260.29 173.17 260.23C171.38 260.20 170.36 260.29 170.17 260.48C169.77 260.88 169.77 267.04 170.17 267.52C170.38 267.79 171.09 267.87 172.92 267.85C174.90 267.83 175.58 267.72 176.42 267.29Z"/><path fill-rule="evenodd" d="M321.88 234.75C321.32 234.63 319.52 234.34 317.88 234.11C316.23 233.88 314.20 233.52 313.38 233.31C312.55 233.11 311.33 232.85 310.66 232.73C310.00 232.62 309.32 232.42 309.16 232.29C309.01 232.16 308.48 231.98 308.00 231.88C306.81 231.65 301.23 229.86 299.30 229.10C296.24 227.89 289.08 224.24 285.75 222.20C279.24 218.20 273.31 213.38 268.04 207.81C264.24 203.79 262.14 201.16 258.96 196.45C257.17 193.80 256.57 193.09 256.32 193.29C256.06 193.51 256.00 185.08 256.01 147.52C256.01 122.19 255.95 101.38 255.88 101.26C255.81 101.14 255.96 101.10 256.22 101.17C256.58 101.27 257.08 100.68 258.62 98.33C262.59 92.28 269.43 84.53 274.50 80.35C275.39 79.62 276.74 78.50 277.50 77.87C278.26 77.23 279.49 76.32 280.25 75.82C281.01 75.33 282.07 74.57 282.62 74.13C284.16 72.90 292.10 68.43 294.62 67.37C295.86 66.85 297.89 65.99 299.12 65.45C302.77 63.87 307.85 62.32 313.38 61.10C314.20 60.92 315.38 60.66 316.00 60.52C319.08 59.82 323.08 59.45 328.62 59.33C336.52 59.16 345.50 59.76 348.25 60.65C348.87 60.84 350.17 61.08 351.13 61.16C352.09 61.25 353.09 61.43 353.36 61.57C353.62 61.70 354.41 61.96 355.11 62.14C358.71 63.06 360.45 63.56 361.16 63.89C361.60 64.09 362.17 64.25 362.44 64.25C362.72 64.25 363.08 64.42 363.25 64.62C363.42 64.83 363.72 65.00 363.91 65.00C364.10 65.00 365.30 65.49 366.57 66.09C367.84 66.69 369.75 67.55 370.81 67.99C371.88 68.43 373.16 69.08 373.67 69.42C374.18 69.77 374.82 70.14 375.11 70.26C377.23 71.14 384.85 76.43 387.86 79.11C391.84 82.66 392.67 83.51 393.88 85.30C394.56 86.30 395.41 87.52 395.78 88.00C396.15 88.48 397.36 90.65 398.48 92.82C400.54 96.85 402.01 100.96 402.87 105.12C403.09 106.20 403.33 107.18 403.40 107.29C403.47 107.41 403.69 109.00 403.89 110.82C404.50 116.58 404.30 123.07 403.36 127.38C401.46 136.14 400.61 138.57 397.19 145.12C394.82 149.66 389.60 156.68 385.88 160.35C379.05 167.07 368.35 173.25 358.99 175.86C358.36 176.03 357.61 176.31 357.32 176.46C356.69 176.80 356.25 176.82 355.80 176.53C355.43 176.30 355.60 175.61 357.05 171.50C357.46 170.33 357.94 168.75 358.11 167.98C358.28 167.21 358.51 166.44 358.61 166.28C358.71 166.11 358.89 165.39 359.00 164.67C359.12 163.96 359.46 161.86 359.76 160.00C360.51 155.43 360.58 146.08 359.90 142.62C358.95 137.85 358.26 135.74 356.38 131.94C351.92 122.90 344.76 116.27 333.20 110.47C331.60 109.66 330.17 109.00 330.02 109.00C329.73 109.00 326.66 107.84 325.90 107.45C325.34 107.15 323.12 106.37 321.38 105.85C320.69 105.64 319.56 105.30 318.88 105.10C318.19 104.89 316.85 104.53 315.90 104.31L314.17 103.90L313.35 104.84C311.88 106.55 309.23 114.21 307.76 121.05C307.17 123.79 306.85 126.49 306.48 131.80C306.09 137.45 306.33 154.82 306.84 158.75C307.28 162.06 308.13 166.31 308.50 167.00C308.64 167.25 308.75 167.76 308.75 168.11C308.75 168.46 308.97 169.40 309.23 170.19C309.49 170.98 309.78 172.05 309.87 172.57C310.30 175.16 311.59 176.78 313.85 177.57C317.55 178.87 320.89 179.79 323.50 180.24C324.39 180.39 325.86 180.68 326.75 180.87C332.39 182.08 332.67 182.11 341.07 182.20C348.55 182.27 349.51 182.24 351.91 181.77C353.36 181.48 354.79 181.25 355.09 181.25C355.38 181.25 356.36 181.09 357.25 180.89C362.82 179.64 365.72 178.92 366.38 178.63C366.79 178.45 367.80 178.05 368.62 177.74C375.31 175.24 380.87 172.19 386.56 167.90C394.11 162.21 399.55 155.62 403.92 146.90C404.96 144.82 405.94 142.74 406.11 142.28C406.76 140.43 407.00 148.45 407.00 172.34C407.00 191.76 406.95 195.27 406.66 195.03C406.25 194.68 405.17 195.79 403.49 198.27C400.97 202.01 398.58 204.86 394.84 208.62C388.09 215.40 386.12 217.09 381.12 220.38C375.54 224.06 373.59 225.26 372.75 225.54C372.27 225.70 371.26 226.13 370.50 226.51C369.74 226.88 368.34 227.55 367.38 227.99C366.41 228.43 365.29 228.95 364.88 229.14C364.19 229.46 361.91 230.26 358.62 231.34C357.94 231.57 357.13 231.75 356.84 231.75C356.55 231.75 355.81 231.97 355.21 232.24C354.62 232.52 353.74 232.74 353.27 232.74C352.79 232.75 351.61 232.97 350.64 233.24C349.67 233.50 347.30 233.97 345.38 234.27C342.32 234.75 340.67 234.83 332.38 234.89C327.15 234.93 322.43 234.87 321.88 234.75Z" fill="url(#pg1)"/><circle cx="392" cy="150" r="92" fill="url(#pg2)" clip-path="url(#pclip)"/></symbol>
+  <symbol id="sun" viewBox="0 0 100 100"><g mask="url(#sunhole)"><circle cx="50" cy="50" r="48" fill="url(#sg1)"/><path d="M71 22C76 30 82 42 82 54c0 22-17 42-40 44 22 4 52-12 56-44 1-12-3-24-10-33z" fill="url(#sg2)" opacity=".9"/></g></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1112 21.8zm8.4-18.2A11.8 11.8 0 001.8 17.9L.1 24l6.3-1.7a11.8 11.8 0 0017.6-10.2c0-3.2-1.2-6.1-3.5-8.4z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="sunmark" id="preSun"><svg viewBox="0 0 492 236" width="100%" height="100%"><use href="#logoFull"/></svg></div>
+  <div class="foot"><span>Energia solar e<br>mobilidade elétrica</span><span class="count" id="count">0</span></div>
+</div>
+<div class="cursor" id="cursor"><span id="cursorTxt">Ver</span></div>
+
+<header class="hdr" id="hdr">
+  <a href="#inicio" class="logo-link" aria-label="Priori, início"><svg class="logo-svg" viewBox="0 0 492 186" aria-hidden="true"><use href="#logoWord"/></svg></a>
+  <nav class="nav" aria-label="Principal">
+    <a href="#solar">Energia solar</a>
+    <a href="#simulador">Simulador</a>
+    <a href="#mobilidade">Mobilidade elétrica</a>
+    <a href="#unidades">Unidades</a>
+  </nav>
+  <a class="pill magnetic" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Falar com a Priori</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mob"><i></i>Menu</button>
+</header>
+<nav class="mob" id="mob" aria-label="Menu">
+  <a href="#solar">Energia solar</a><a href="#simulador">Simulador</a><a href="#mobilidade">Mobilidade</a><a href="#financiamento">Financiamento</a><a href="#unidades">Unidades</a>
+  <small>Altônia · Loanda · Palotina · Umuarama · Naviraí</small>
+</nav>
+
+<main id="inicio">
+<section class="hero" aria-label="Apresentação">
+  <div class="hero-media" id="heroMedia"><img src="img/hero-usina.jpg" alt="Usina de painéis solares ao pôr do sol"></div>
+  <div class="hero-in">
+    <h1 aria-label="A energia que te move.">
+      <span class="ln"><span class="split">A energia</span></span>
+      <span class="ln"><span class="split">que te <span class="gold">move.</span></span></span>
+    </h1>
+    <div class="hero-row">
+      <p>Energia solar para sua casa, sua propriedade rural ou sua empresa, e mobilidade elétrica para o dia a dia. Do projeto à instalação, com financiamento facilitado.</p>
+      <div class="ctas">
+        <a class="btn btn-sun magnetic" href="#simulador">Simular minha economia<svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass magnetic" href="#mobilidade">Mobilidade elétrica</a>
+      </div>
+    </div>
+  </div>
+  <div class="facts">
+    <div><b>Até 72x</b>no financiamento solar</div>
+    <div><b>Até 48x</b>no carnê da mobilidade elétrica</div>
+    <div><b>5 unidades</b>no PR e no MS</div>
+  </div>
+</section>
+
+<section class="sec sim" id="simulador" aria-labelledby="sim-t">
+  <div>
+    <h2 id="sim-t">Quanto a sua conta de luz <span class="gold">pode cair?</span></h2>
+    <p class="lede">Arraste e informe o valor médio da sua conta. A gente mostra uma estimativa do sistema e da economia.</p>
+    <div class="bill">
+      <label for="bill">Valor médio da conta de luz por mês</label>
+      <output id="billOut" for="bill">R$ 450</output>
+      <input class="range" id="bill" type="range" min="100" max="5000" step="50" value="450" aria-describedby="disc">
+      <div class="ticks"><span>R$ 100</span><span>R$ 5.000</span></div>
+      <div class="phase" role="radiogroup" aria-label="Tipo de ligação"><span>Tipo de ligação</span><label><input type="radio" name="fase" value="30">Monofásica</label><label><input type="radio" name="fase" value="50" checked>Bifásica</label><label><input type="radio" name="fase" value="100">Trifásica</label></div>
+      <div class="quick" aria-label="Valores comuns"><button type="button" data-v="250">Casa pequena</button><button type="button" data-v="600">Casa grande</button><button type="button" data-v="1800">Propriedade rural</button><button type="button" data-v="4000">Empresa</button></div>
+    </div>
+  </div>
+  <div class="result" aria-live="polite">
+    <svg class="gauge" viewBox="0 0 440 240" aria-hidden="true">
+      <path d="M30 220A190 190 0 0 1 410 220" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14" stroke-linecap="round"/>
+      <path id="gArc" d="M30 220A190 190 0 0 1 410 220" fill="none" stroke="url(#gGrad)" stroke-width="14" stroke-linecap="round"/>
+      <defs><linearGradient id="gGrad" x1="0" x2="1"><stop offset="0" stop-color="#f08c12"/><stop offset="1" stop-color="#ffd93a"/></linearGradient></defs>
+      <g id="gSun"><circle r="22" fill="rgba(255,198,31,.25)"/><circle r="12" fill="#ffd93a"/></g>
+    </svg>
+    <p class="save-label">Economia estimada por mês</p>
+    <p class="save"><span id="save">R$ 398</span><small id="saveYear">89% da conta · R$ 4.780 por ano</small></p>
+    <p class="pay">Você pagará de <b id="payMin">R$ 52</b> a <b id="payMax">R$ 52</b> por mês</p>
+    <div class="stats">
+      <div><span>Sistema sugerido</span><b id="kwp">4,4 kWp</b></div>
+      <div><span>Painéis de 580 W</span><b id="mods">8 módulos</b></div>
+      <div><span>Conta média com solar</span><b id="newBill">R$ 52</b></div>
+      <div><span>Economia em 25 anos</span><b id="y25">R$ 114 mil</b></div>
+    </div>
+    <a class="btn btn-sun magnetic" id="simCta" href="#unidades"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Quero um orçamento com esse valor</a>
+    <details class="disc" id="disc"><summary>Como calculamos</summary><p>Tarifa residencial Copel de R$ 1,03/kWh com tributos (após a revisão de junho de 2026). Fio B de R$ 0,25/kWh, cobrado em 60% em 2026, 75% em 2027 e 90% de 2028 em diante (Lei 14.300), sobre os 70% da geração que vão para a rede. A nova conta é o maior valor entre a taxa mínima da ligação e o Fio B. A faixa “você pagará de… a…” vai do cenário favorável (Fio B de hoje e 40% do consumo na hora da geração) ao conservador (Fio B de 90% a partir de 2028 e 20% de consumo simultâneo); a conta média é o meio dessa faixa. Geração com 4,8 horas de sol por dia e 78% de rendimento; perda de 0,5% ao ano nos painéis. Sem reajustes de tarifa e sem iluminação pública. O valor exato é calculado pela equipe Priori na visita técnica.</p></details>
+  </div>
+</section>
+
+<section class="sec" id="solar" aria-labelledby="solar-t">
+  <div class="solar-head">
+    <h2 class="h2" id="solar-t">Energia solar<br>para cada <span class="gold">necessidade</span></h2>
+    <p class="lede">Projetos sob medida para o seu consumo e o seu espaço. Toque em cada área para ver os detalhes.</p>
+  </div>
+  <div class="panels" id="panels">
+    <article class="panel on" tabindex="0" data-cursor="Abrir">
+      <img src="img/residencial.jpg" alt="Casa com painéis solares no telhado" loading="lazy">
+      <span class="tab" aria-hidden="true">Residencial</span>
+      <div class="body"><h3>Residencial</h3><p>Conta de luz menor todo mês e um imóvel mais valorizado. Dimensionamos o sistema pelo seu consumo e pelo seu telhado.</p>
+        <div class="chips"><span>Telhado cerâmico, metálico ou laje</span><span>Acompanhamento da geração pelo celular</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+    <article class="panel" tabindex="0" data-cursor="Abrir">
+      <img src="img/rural.jpg" alt="Usina solar em área rural cercada por plantações" loading="lazy">
+      <span class="tab" aria-hidden="true">Rural</span>
+      <div class="body"><h3>Rural</h3><p>Energia para aviários, irrigação, ordenha e armazenagem. Sistemas em solo ou no telhado, pensados para o consumo do campo.</p>
+        <div class="chips"><span>Usinas em solo</span><span>Granjas, aviários e irrigação</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+    <article class="panel" tabindex="0" data-cursor="Abrir">
+      <img src="img/empresarial.jpg" alt="Galpões industriais cobertos com painéis solares" loading="lazy">
+      <span class="tab" aria-hidden="true">Empresarial</span>
+      <div class="body"><h3>Empresarial</h3><p>Menos custo fixo e mais previsibilidade para o caixa da empresa, mesmo com os reajustes de tarifa.</p>
+        <div class="chips"><span>Comércio e indústria</span><span>Projetos para alto consumo</span><span class="hl">Financiamento em até 72x</span></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="proc" id="processo" aria-labelledby="proc-t">
+  <div class="proc-head">
+    <h2 id="proc-t">Do sol até<br>a sua <span class="gold">tomada</span></h2>
+    <p class="lede">A Priori cuida de todas as etapas. Você só acompanha.</p>
+  </div>
+  <div class="sky" aria-hidden="true">
+    <svg viewBox="0 0 1000 400" preserveAspectRatio="none">
+      <path id="arcBase" d="M20 395C200 20 800 20 980 395" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="3 9"/>
+      <path id="arcFill" d="M20 395C200 20 800 20 980 395" fill="none" stroke="#ffc61f" stroke-width="3"/>
+    </svg>
+  </div>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+  <div class="steps" id="steps">
+    <div class="step on"><b>1</b><h3>Conversa e simulação</h3><p>Você envia a conta de luz pelo WhatsApp e recebe uma primeira proposta.</p></div>
+    <div class="step"><b>2</b><h3>Visita técnica e projeto</h3><p>Avaliamos o telhado ou o terreno e desenhamos o sistema ideal.</p></div>
+    <div class="step"><b>3</b><h3>Homologação</h3><p>Cuidamos da documentação junto à distribuidora de energia.</p></div>
+    <div class="step"><b>4</b><h3>Instalação e monitoramento</h3><p>Instalamos, ligamos o sistema e acompanhamos a geração com você.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="financiamento" aria-labelledby="fin-t">
+  <div class="fin-head">
+    <h2 class="h2" id="fin-t">Parcelas que<br>cabem no <span class="gold">bolso</span></h2>
+    <p class="lede">Em muitos casos, a parcela do sistema solar fica próxima do valor que você já paga de conta de luz.</p>
+  </div>
+  <div class="fin">
+    <div class="fin-card a">
+      <span class="tag">Energia solar</span>
+      <div><div class="num gold" data-to="72">72x</div></div>
+      <div><h3>Financiamento em até 72 parcelas</h3><p>Para sistemas residenciais, rurais e empresariais, com análise de crédito.</p></div>
+    </div>
+    <div class="fin-card b">
+      <span class="tag">Mobilidade elétrica</span>
+      <div><div class="num" data-to="48">48x</div></div>
+      <div><h3>Carnê facilitado em até 48x</h3><p>Bikes, scooters e triciclos elétricos com parcelas mensais no carnê.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec mob-sec" id="mobilidade" aria-labelledby="mob-t">
+  <div class="mob-head">
+    <h2 class="h2" id="mob-t">Mobilidade <span class="gold">elétrica</span></h2>
+    <p class="lede">Bikes, scooters e triciclos para ir ao trabalho, à escola ou ao mercado gastando muito menos que com combustível.</p>
+  </div>
+  <div class="products">
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/bike-ppower.jpg" alt="Bike elétrica P-Power azul" loading="lazy"></div>
+      <div class="info"><small>Bike elétrica</small><h3>P-Power</h3><p>Prática para o dia a dia, com bagageiro e baú.</p><button type="button" class="js-prod" data-p="Bike elétrica P-Power">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/scooter-red.jpg" alt="Scooter elétrica vermelha com pneus largos" loading="lazy"></div>
+      <div class="info"><small>Scooter elétrica</small><h3>Pneu largo</h3><p>Pneus largos, conforto e economia para o seu dia a dia.</p><button type="button" class="js-prod" data-p="Scooter elétrica de pneu largo (vermelha)">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/scooter-jet.jpg" alt="Scooter elétrica preta modelo Jet com baú" loading="lazy"></div>
+      <div class="info"><small>Scooter elétrica</small><h3>Jet</h3><p>Estilo, agilidade e desempenho para ir mais longe.</p><button type="button" class="js-prod" data-p="Scooter elétrica Jet">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+    <article class="prod" data-cursor="Ver">
+      <div class="ph"><img src="img/triciclo.jpg" alt="Triciclo elétrico branco e vinho com baú" loading="lazy"></div>
+      <div class="info"><small>Triciclo elétrico</small><h3>Triciclo com baú</h3><p>Mais espaço, conforto e estabilidade para levar mais com segurança.</p><button type="button" class="js-prod" data-p="Triciclo elétrico">Consultar preço<svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></button></div>
+    </article>
+  </div>
+  <div class="mob-band"><b>Leve hoje e pague no <em>carnê em até 48x</em></b><a class="btn btn-sun magnetic" href="https://wa.link/7mlw76" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Falar com a equipe de mobilidade</a></div>
+</section>
+
+<section class="sec" id="unidades" aria-labelledby="un-t">
+  <h2 class="h2" id="un-t" style="margin-bottom:clamp(40px,6vh,70px)">Uma Priori<br><span class="gold">perto de você</span></h2>
+  <div class="units-wrap">
+    <div>
+      <ul class="units" id="units"></ul>
+      <div class="support">
+        <a href="https://wa.me/5544998304538" target="_blank" rel="noopener"><span><b>Suporte energia solar</b><br><span>Dúvidas sobre o seu sistema</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+        <a href="https://wa.link/7mlw76" target="_blank" rel="noopener"><span><b>Suporte mobilidade elétrica</b><br><span>Bikes, scooters e triciclos</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+        <a href="https://wa.me/5544998566398" target="_blank" rel="noopener"><span><b>Pós-venda</b><br><span>Atendimento depois da compra</span></span><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+      </div>
+    </div>
+    <form id="form" novalidate>
+      <h3>Peça seu orçamento</h3>
+      <label class="field">Assunto
+        <select name="assunto"><option>Energia solar</option><option>Mobilidade elétrica</option></select>
+      </label>
+      <label class="field">Unidade mais próxima
+        <select name="unidade" id="unitSel"></select>
+      </label>
+      <div class="row">
+        <label class="field">Seu nome<input name="nome" autocomplete="name"></label>
+        <label class="field">Cidade<input name="cidade" autocomplete="address-level2"></label>
+      </div>
+      <label class="field">Mensagem<textarea name="msg" placeholder="Valor da conta de luz, modelo de interesse, dúvidas…"></textarea></label>
+      <button class="btn btn-sun magnetic" type="submit"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Enviar pelo WhatsApp</button>
+      <p class="note" id="note">Abre o WhatsApp da unidade escolhida com a mensagem pronta.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ft">
+    <div><b>Priori Energia Solar</b>Av. 7 de Setembro, 169<br>Altônia · PR · 85550-009</div>
+    <nav aria-label="Rodapé"><b>Navegue</b><a href="#solar">Energia solar</a><a href="#simulador">Simulador</a><a href="#mobilidade">Mobilidade elétrica</a><a href="#unidades">Unidades</a></nav>
+    <div><b>Unidades</b>Altônia, Loanda, Palotina e Umuarama (PR)<br>Naviraí (MS)</div>
+  </div>
+  <div class="wordmark"><svg viewBox="0 0 492 186" role="img" aria-label="Priori"><use href="#logoWord"/></svg></div>
+  <div class="fb"><span>© <span id="y"></span> Priori · A energia que te move</span><span>Energia solar e mobilidade elétrica</span></div>
+</footer>
+
+<a class="wa" id="waFloat" href="https://wa.me/554498793606?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Priori." target="_blank" rel="noopener" aria-label="Chamar a Priori no WhatsApp"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<script>
+/* ====== CONTATOS (edite aqui) ======
+   Número no formato 55 + DDD + número, ou um link completo de WhatsApp. */
+const UNIDADES = [
+  {cidade:"Altônia",   uf:"PR", info:"Av. 7 de Setembro, 169", wa:"554498793606"},
+  {cidade:"Loanda",    uf:"PR", info:"Unidade Loanda",          wa:"https://wa.me/message/S2FMKQFOJYETM1"},
+  {cidade:"Palotina",  uf:"PR", info:"Unidade Palotina",        wa:"554498380659"},
+  {cidade:"Umuarama",  uf:"PR", info:"Unidade Umuarama",        wa:"554498378141"},
+  {cidade:"Naviraí",   uf:"MS", info:"Unidade Naviraí",         wa:"5567992412980"}
+];
+/* =================================== */
+(function(){
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const hasGsap=!!(window.gsap&&window.ScrollTrigger);
+  const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  const num=(v,d=0)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+  $('#y').textContent=new Date().getFullYear();
+  const waHref=(target,text)=>/^https?:/.test(target)?target:`https://wa.me/${target}?text=${encodeURIComponent(text)}`;
+  const openLink=href=>{const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener';document.body.append(a);a.click();a.remove()};
+
+  /* ---------- unidades ---------- */
+  const list=$('#units'), sel=$('#unitSel');
+  UNIDADES.forEach(u=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<a href="${waHref(u.wa,'Olá! Vim pelo site da Priori.')}" target="_blank" rel="noopener" data-cursor="Conversar"><span><h3>${u.cidade}</h3><small>${u.uf} · ${u.info}</small></span><span class="go"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span></a>`;
+    list.append(li);
+    const o=document.createElement('option');o.textContent=`${u.cidade} (${u.uf})`;o.value=u.cidade;sel.append(o);
+  });
+
+
+  /* ---------- simulador ---------- */
+  /* Premissas (edite aqui). Fontes: faturas Copel 2026, revisão tarifária ANEEL jun/2026 (+20% B1), Lei 14.300 art. 27. */
+  const TARIFA=1.03;      /* R$/kWh, B1 Copel com tributos */
+  const FIOB=0.25;        /* R$/kWh, TUSD Fio B com tributos (~24% da tarifa) */
+  const FIOB_ANO={2026:.60,2027:.75}; const FIOB_DEPOIS=.90;
+  const SIMULT=.30;       /* parte da geração consumida na hora, sem passar pela rede */
+  const HSP=4.8, PR=.78, MOD=.58, AREA_MOD=2.6, DEGRAD=.005, ANOS=25;
+  const bill=$('#bill'), out=$('#billOut'), arc=$('#gArc'), sun=$('#gSun');
+  const arcLen=arc.getTotalLength(); arc.style.strokeDasharray=arcLen;
+  const shown={save:0,year:0,pct:0,kwp:0,mods:0,area:0,nova:0,pMin:0,pMax:0,y25:0};
+  let simValue=450;
+  const faseKwh=()=>+($('input[name=fase]:checked')||{value:50}).value;
+  function contaComSolar(C,G,pctFioB,minKwh,simult=SIMULT){
+    const gUsado=Math.min(G,C);                 /* geração que abate consumo */
+    const compensada=gUsado*(1-simult);          /* passou pela rede: paga Fio B */
+    const daRede=C-gUsado;                       /* consumo não coberto pelo sistema */
+    const fio=compensada*FIOB*pctFioB;
+    return Math.max(minKwh*TARIFA, fio+daRede*TARIFA);
+  }
+  function calc(v){
+    const C=v/TARIFA, minKwh=faseKwh();
+    const mods=Math.max(1,Math.ceil(C/(HSP*30*PR)/MOD)), kwp=mods*MOD, G=kwp*HSP*30*PR;
+    const ano=new Date().getFullYear(), pctHoje=FIOB_ANO[ano]??(ano<2026?.45:FIOB_DEPOIS);
+    /* faixa: melhor caso = Fio B de hoje e 40% de consumo simultâneo; pior caso = Fio B de 90% (2028+) e 20% simultâneo */
+    const pMin=Math.min(v,contaComSolar(C,G,pctHoje,minKwh,.40)), pMax=Math.min(v,contaComSolar(C,G,Math.max(pctHoje,FIOB_DEPOIS),minKwh,.20));
+    let y25=0;
+    for(let i=0;i<ANOS;i++){const a=ano+i, pct=FIOB_ANO[a]??FIOB_DEPOIS;y25+=Math.max(0,v-Math.min(v,contaComSolar(C,G*Math.pow(1-DEGRAD,i),pct,minKwh)))*12}
+    const nova=(pMin+pMax)/2, save=v-nova;  /* economia = conta atual − conta média com solar */
+    return {save,year:save*12,pct:save/v*100,kwp,mods,area:mods*AREA_MOD,nova,pMin,pMax,y25};
+  }
+  function paint(r){
+    $('#save').textContent=brl(Math.round(r.save));
+    $('#saveYear').textContent=Math.round(r.pct)+'% da conta · '+brl(Math.round(r.year))+' por ano';
+    $('#kwp').textContent=num(r.kwp,2)+' kWp';
+    $('#mods').textContent=Math.round(r.mods)+(Math.round(r.mods)===1?' módulo':' módulos')+' · '+Math.round(r.area)+' m²';
+    $('#newBill').textContent=brl(Math.round(r.nova));
+    const a=Math.round(r.pMin), b=Math.round(r.pMax);
+    $('.pay').innerHTML=b-a<3?`Você pagará cerca de <b>${brl(a)}</b> por mês`:`Você pagará de <b>${brl(a)}</b> a <b>${brl(b)}</b> por mês`;
+    $('#y25').textContent=r.y25>=1e6?'R$ '+num(r.y25/1e6,1)+' mi':'R$ '+Math.round(r.y25/1000)+' mil';
+  }
+  function update(animate){
+    const v=+bill.value; simValue=v;
+    out.textContent=brl(v);
+    const p=(v-bill.min)/(bill.max-bill.min);
+    bill.style.setProperty('--p',(p*100)+'%');
+    const t=Math.sqrt(p); /* curva suave: contas pequenas também enchem o arco */
+    arc.style.strokeDashoffset=arcLen*(1-Math.max(.04,t));
+    const pt=arc.getPointAtLength(arcLen*Math.max(.04,t)); sun.setAttribute('transform',`translate(${pt.x} ${pt.y})`);
+    const r=calc(v);
+    if(animate&&hasGsap&&!reduce){gsap.to(shown,{...r,duration:.6,ease:'power3.out',overwrite:true,onUpdate:()=>paint(shown)})}
+    else{Object.assign(shown,r);paint(shown)}
+    $$('.quick button').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
+  }
+  bill.addEventListener('input',()=>update(true));
+  $$('input[name=fase]').forEach(r=>r.addEventListener('change',()=>update(true)));
+  $$('.quick button').forEach(b=>b.addEventListener('click',()=>{bill.value=b.dataset.v;update(true)}));
+  update(false);
+
+  /* ---------- formulário ---------- */
+  const form=$('#form');
+  $('#simCta').addEventListener('click',()=>{form.assunto.value='Energia solar';form.msg.value=`Minha conta de luz é de aproximadamente ${brl(simValue)} por mês (ligação ${({30:'monofásica',50:'bifásica',100:'trifásica'})[faseKwh()]}). Gostaria de um orçamento de energia solar.`});
+  $$('.js-prod').forEach(b=>b.addEventListener('click',()=>{
+    form.assunto.value='Mobilidade elétrica';form.msg.value=`Tenho interesse em: ${b.dataset.p}. Gostaria de saber o preço e as condições no carnê.`;
+    const tgt=$('#unidades'); window.__lenis?window.__lenis.scrollTo(tgt,{duration:1.5}):tgt.scrollIntoView({behavior:'smooth'});
+  }));
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!form.nome.value.trim()){form.nome.focus();$('#note').textContent='Escreva seu nome para montar a mensagem.';return}
+    const u=UNIDADES.find(x=>x.cidade===form.unidade.value)||UNIDADES[0];
+    const t=`Olá, Priori ${u.cidade}! Vim pelo site.\n\n*Assunto:* ${form.assunto.value}\n*Nome:* ${form.nome.value.trim()}\n*Cidade:* ${form.cidade.value.trim()||'-'}\n*Mensagem:* ${form.msg.value.trim()||'-'}`;
+    if(/^https?:/.test(u.wa)){try{await navigator.clipboard.writeText(t);$('#note').textContent='Mensagem copiada. Cole no WhatsApp que vai abrir.'}catch(_){}}
+    openLink(waHref(u.wa,t));
+  });
+
+  /* ---------- painéis da energia solar ---------- */
+  const panels=$$('.panel');
+  const openPanel=p=>panels.forEach(x=>x.classList.toggle('on',x===p));
+  panels.forEach(p=>{
+    p.addEventListener('click',()=>openPanel(p));
+    p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPanel(p)}});
+    if(fine)p.addEventListener('mouseenter',()=>openPanel(p));
+  });
+
+  /* ---------- menu ---------- */
+  const menuBtn=$('#menuBtn');
+  const setMenu=o=>{document.body.classList.toggle('menu-open',o);menuBtn.setAttribute('aria-expanded',o);window.__lenis&&(o?window.__lenis.stop():window.__lenis.start())};
+  menuBtn.addEventListener('click',()=>setMenu(!document.body.classList.contains('menu-open')));
+  $$('#mob a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+  /* ---------- header e botão flutuante ---------- */
+  const hdr=$('#hdr'), wa=$('#waFloat'); let lastY=0;
+  const onScroll=y=>{
+    const past=y>innerHeight*.75;
+    hdr.classList.toggle('solid',past);
+    hdr.classList.toggle('hide',y>lastY&&y>200&&!document.body.classList.contains('menu-open'));
+    wa.classList.toggle('show',past);lastY=y;
+  };
+
+  const pre=$('#pre');
+  if(!hasGsap||reduce){pre.remove();addEventListener('scroll',()=>onScroll(scrollY),{passive:true});$$('.num').forEach(n=>n.textContent=n.dataset.to+'x');return}
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- Lenis ---------- */
+  let lenis=null;
+  if(window.Lenis){
+    lenis=new Lenis({lerp:.085});window.__lenis=lenis;
+    lenis.on('scroll',ScrollTrigger.update);lenis.on('scroll',({scroll})=>onScroll(scroll));
+    gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length<2)return;const el=document.querySelector(id);if(!el)return;e.preventDefault();setTimeout(()=>lenis.scrollTo(el,{duration:1.5}),document.body.classList.contains('menu-open')?350:0)}));
+  } else addEventListener('scroll',()=>onScroll(scrollY),{passive:true});
+
+  /* ---------- título em letras ---------- */
+  let chars=[];
+  $$('.hero .split').forEach(el=>{if(window.SplitType){const s=new SplitType(el,{types:'words, chars',tagName:'span'});chars.push(...s.chars)}else chars.push(el)});
+  $$('.hero .word').forEach(w=>{w.style.display='inline-block';w.style.whiteSpace='nowrap'});
+  /* letras dentro do .gold herdam o degradê */
+  $$('.hero .gold .char').forEach(c=>{c.classList.add('gold')});
+
+  /* ---------- entrada: o sol se fecha e revela a página ---------- */
+  lenis&&lenis.stop();
+  gsap.set(chars,{yPercent:115,display:'inline-block'});
+  gsap.set(['.hero-row p','.ctas > *','.facts','.hdr'],{autoAlpha:0,y:24});
+  gsap.set('#heroMedia img',{scale:1.25});
+  const c={v:0};
+  const ready=Promise.all([document.fonts?document.fonts.ready:0,$('#heroMedia img').decode?$('#heroMedia img').decode().catch(()=>{}):0]);
+  const spin=gsap.fromTo('#preSun',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:1,ease:'expo.out'});
+  const count=gsap.to(c,{v:100,duration:1.7,ease:'power2.inOut',onUpdate:()=>$('#count').textContent=Math.round(c.v)});
+  Promise.race([ready,new Promise(r=>setTimeout(r,3500))]).then(()=>count.then(()=>{
+    const tl=gsap.timeline({onComplete:()=>{spin.kill();pre.remove();lenis&&lenis.start();ScrollTrigger.refresh()}});
+    tl.to('.pre .foot',{autoAlpha:0,duration:.4})
+      .to('#preSun',{autoAlpha:0,y:-16,duration:.5,ease:'power2.in'},'<')
+      .to(pre,{clipPath:'circle(0% at 50% 50%)',duration:1.2,ease:'expo.inOut'},'-=.1')
+      .to('#heroMedia img',{scale:1,duration:2.2,ease:'expo.out'},'<.2')
+      .to(chars,{yPercent:0,duration:1.1,ease:'expo.out',stagger:.03},'<.4')
+      .to(['.hero-row p','.ctas > *','.facts','.hdr'],{autoAlpha:1,y:0,duration:1,ease:'expo.out',stagger:.08},'<.4');
+  }));
+
+  /* ---------- paralaxe do hero ---------- */
+  gsap.to('#heroMedia img',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero-in',{y:-90,autoAlpha:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* ---------- títulos ---------- */
+  $$('main h2').forEach(h=>{if(h.closest('.hero'))return;gsap.from(h,{yPercent:30,autoAlpha:0,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:h,start:'top 88%'}})});
+  gsap.from('.result',{y:60,autoAlpha:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.sim',start:'top 70%'}});
+  gsap.from('.panel',{y:80,autoAlpha:0,duration:1.4,ease:'expo.out',stagger:.1,scrollTrigger:{trigger:'#panels',start:'top 85%'}});
+  gsap.from('.prod',{y:60,autoAlpha:0,duration:1.2,ease:'expo.out',stagger:.08,scrollTrigger:{trigger:'.products',start:'top 85%'}});
+  gsap.from('.units li',{x:-30,autoAlpha:0,duration:1,ease:'expo.out',stagger:.07,scrollTrigger:{trigger:'#units',start:'top 85%'}});
+
+  /* ---------- números do financiamento contam ---------- */
+  $$('.num').forEach(n=>{const o={v:0},to=+n.dataset.to;n.textContent='0x';
+    gsap.to(o,{v:to,duration:1.8,ease:'power3.out',onUpdate:()=>n.textContent=Math.round(o.v)+'x',scrollTrigger:{trigger:n,start:'top 85%'}})});
+  gsap.from('.fin-card',{y:70,autoAlpha:0,duration:1.3,ease:'expo.out',stagger:.12,scrollTrigger:{trigger:'.fin',start:'top 85%'}});
+
+  /* ---------- processo: o sol percorre o céu (desktop) ---------- */
+  const mm=gsap.matchMedia();
+  mm.add('(min-width: 901px)',()=>{
+    const path=$('#arcFill'), len=path.getTotalLength(), glow=$('#glow'), svg=$('.sky svg'), steps=$$('.step');
+    path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+    const place=p=>{
+      path.style.strokeDashoffset=len*(1-p);
+      const pt=path.getPointAtLength(len*p), b=svg.getBoundingClientRect(), sec=$('.proc').getBoundingClientRect();
+      const x=b.left-sec.left+pt.x/1000*b.width, y=b.top-sec.top+pt.y/400*b.height;
+      gsap.set(glow,{x,y});
+      const i=Math.min(steps.length-1,Math.floor(p*steps.length*.999));
+      steps.forEach((s,k)=>s.classList.toggle('on',k<=i));
+    };
+    place(0);
+    ScrollTrigger.create({trigger:'.proc',start:'top top',end:'+=180%',pin:true,scrub:true,onUpdate:s=>place(s.progress),onRefresh:s=>place(s.progress)});
+  });
+
+  /* ---------- cursor, magnéticos e inclinação ---------- */
+  if(fine){
+    const cur=$('#cursor'),txt=$('#cursorTxt'),pos={x:innerWidth/2,y:innerHeight/2},m={...pos};
+    const xs=gsap.quickSetter(cur,'x','px'),ys=gsap.quickSetter(cur,'y','px');
+    addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY});
+    gsap.ticker.add(()=>{pos.x+=(m.x-pos.x)*.2;pos.y+=(m.y-pos.y)*.2;xs(pos.x);ys(pos.y)});
+    const bindCursor=el=>{el.addEventListener('pointerenter',()=>{txt.textContent=el.dataset.cursor;cur.classList.add('lg')});el.addEventListener('pointerleave',()=>cur.classList.remove('lg'))};
+    $$('[data-cursor]').forEach(bindCursor);
+    $$('.magnetic').forEach(el=>{
+      el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.3,duration:.5,ease:'power3.out'})});
+      el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.9,ease:'elastic.out(1,.4)'}));
+    });
+    $$('.prod').forEach(p=>{
+      p.addEventListener('pointermove',e=>{const r=p.getBoundingClientRect();gsap.to(p,{rotateY:((e.clientX-r.left)/r.width-.5)*8,rotateX:-((e.clientY-r.top)/r.height-.5)*8,transformPerspective:900,duration:.6,ease:'power3.out'})});
+      p.addEventListener('pointerleave',()=>gsap.to(p,{rotateY:0,rotateX:0,duration:.9,ease:'power3.out'}));
+    });
+  }
+  addEventListener('load',()=>ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
